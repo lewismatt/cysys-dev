@@ -1,0 +1,31 @@
+{
+  "default": "eldora-night",
+  "themes": [
+    {
+      "name": "eldora-night",
+      "title": "Eldora Night",
+      "source": "hand-authored: packages/themes/registry/eldora-night.json",
+      "fonts": [
+        {
+          "family": "IBM Plex Sans",
+          "pkg": "@fontsource-variable/ibm-plex-sans",
+          "version": "5.3.0",
+          "imports": [
+            "@fontsource-variable/ibm-plex-sans"
+          ]
+        },
+        {
+          "family": "IBM Plex Mono",
+          "pkg": "@fontsource/ibm-plex-mono",
+          "version": "5.3.0",
+          "imports": [
+            "@fontsource/ibm-plex-mono/400.css",
+            "@fontsource/ibm-plex-mono/500.css",
+            "@fontsource/ibm-plex-mono/600.css",
+            "@fontsource/ibm-plex-mono/700.css"
+          ]
+        }
+      ]
+    }
+  ]
+}

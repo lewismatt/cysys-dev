@@ -1,0 +1,68 @@
+import { CalendarClockIcon, DownloadIcon } from "lucide-react"
+
+import { Button } from "@cysys/ui/components/button"
+
+import { AlertsCard, IssueCard, ModeCard } from "./controls"
+import { ForecastChart } from "./forecast"
+import { CrewCard, GunsTable, PumpHouse } from "./operations"
+import { UpcomingShifts } from "./shifts"
+import { GunsRunning, NextWindowStat, WaterThisWeek, WetBulbNow } from "./stats"
+
+/**
+ * Example page in the spirit of the shadcn/ui examples: plain cards on a
+ * quiet background, one accent color, small type and tabular figures.
+ * Content is Eldora snowmaking demo data.
+ */
+export function EldoraOverview() {
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className="flex flex-col gap-1">
+          <div className="font-mono text-xs text-muted-foreground">
+            eldora <span className="text-muted-foreground/50">/</span> snowmaking
+          </div>
+          <h1 className="font-heading text-2xl font-medium tracking-tight">Snowmaking</h1>
+          <p className="text-sm text-muted-foreground">
+            Conditions, windows and equipment. Demo data.
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <Button variant="outline">
+            <DownloadIcon data-icon="inline-start" />
+            Export
+          </Button>
+          <Button>
+            <CalendarClockIcon data-icon="inline-start" />
+            Plan crew
+          </Button>
+        </div>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <WetBulbNow />
+        <NextWindowStat />
+        <WaterThisWeek />
+        <GunsRunning />
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-3">
+        <ForecastChart />
+        <UpcomingShifts />
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-3">
+        <GunsTable />
+        <div className="flex flex-col gap-4">
+          <PumpHouse />
+          <AlertsCard />
+        </div>
+      </div>
+
+      <div className="grid items-start gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <ModeCard />
+        <IssueCard />
+        <CrewCard />
+      </div>
+    </div>
+  )
+}
