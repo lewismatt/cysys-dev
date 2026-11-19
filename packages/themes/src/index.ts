@@ -46,6 +46,37 @@ export const themes = [
         "border": "oklch(0.3068 0.0337 54.7785)"
       }
     }
+  },
+  {
+    "name": "eldo-2",
+    "title": "Eldo 2",
+    "source": "https://tweakcn.com/r/themes/cmwnqwrwt000104i79cbs8k9p",
+    "fonts": {
+      "sans": "Inter",
+      "serif": "Georgia",
+      "mono": "JetBrains Mono"
+    },
+    "radius": "0.375rem",
+    "swatches": {
+      "light": {
+        "background": "oklch(1.0000 0 0)",
+        "foreground": "oklch(0.2178 0 0)",
+        "primary": "oklch(0.6634 0.1994 41.8070)",
+        "secondary": "oklch(0.9674 0.0013 286.3752)",
+        "accent": "oklch(0.6634 0.1994 41.8070)",
+        "muted": "oklch(0.9674 0.0013 286.3752)",
+        "border": "oklch(0.9197 0.0040 286.3202)"
+      },
+      "dark": {
+        "background": "oklch(0.1408 0.0044 285.8229)",
+        "foreground": "oklch(0.9851 0 0)",
+        "primary": "oklch(0.6634 0.1994 41.8070)",
+        "secondary": "oklch(0.2739 0.0055 286.0326)",
+        "accent": "oklch(0.6634 0.1994 41.8070)",
+        "muted": "oklch(0.2739 0.0055 286.0326)",
+        "border": "oklch(0.2739 0.0055 286.0326)"
+      }
+    }
   }
 ] as const satisfies readonly CysysTheme[]
 

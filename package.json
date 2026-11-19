@@ -13,7 +13,8 @@
     "themes:sync": "node packages/themes/scripts/themes.mjs sync",
     "themes:build": "node packages/themes/scripts/themes.mjs build",
     "themes:check": "node packages/themes/scripts/themes.mjs check",
-    "ui:add": "pnpm dlx shadcn@latest add -c apps/web"
+    "ui:add": "pnpm dlx shadcn@latest add -c apps/web",
+    "themes:audit": "node packages/themes/scripts/themes.mjs audit"
   },
   "devDependencies": {
     "prettier": "^3.9.10",

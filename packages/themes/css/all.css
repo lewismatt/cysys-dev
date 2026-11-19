@@ -2,3 +2,4 @@
  * Edit registry/*.json or themes.json and run `pnpm themes:build`. */
 
 @import "./eldo-1.css";
+@import "./eldo-2.css";

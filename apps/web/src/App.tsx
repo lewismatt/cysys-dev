@@ -6,6 +6,8 @@ import { ThemeGallery } from "@/components/theme-gallery"
 import { TokenGrid } from "@/components/token-grid"
 import { Typography } from "@/components/typography"
 
+const themeCount: number = themes.length
+
 export function App() {
   return (
     <div className="min-h-svh">
@@ -16,8 +18,8 @@ export function App() {
             <div className="leading-tight">
               <div className="text-sm font-semibold">Cynerdyne Systems</div>
               <div className="text-xs text-muted-foreground">
-                Design playground · {themes.length} theme
-                {themes.length === 1 ? "" : "s"}
+                Design playground · {themeCount} theme
+                {themeCount === 1 ? "" : "s"}
               </div>
             </div>
           </div>

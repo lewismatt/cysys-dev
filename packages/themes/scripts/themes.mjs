@@ -10,6 +10,7 @@
 //   node scripts/themes.mjs sync [name...]   re-fetch themes from their source URLs
 //   node scripts/themes.mjs build            regenerate css/ and src/index.ts
 //   node scripts/themes.mjs check            fail if generated files are stale
+//   node scripts/themes.mjs audit [name...] [--strict]  contrast + structure checks
 //   node scripts/themes.mjs list
 //   node scripts/themes.mjs default <name>   set the fallback theme
 //   node scripts/themes.mjs remove <name>
@@ -19,6 +20,8 @@ import { existsSync } from "node:fs"
 import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises"
 import { dirname, join, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
+
+import { auditTheme, formatFindings } from "./audit.mjs"
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 const MANIFEST = join(ROOT, "themes.json")
@@ -423,6 +426,19 @@ async function main() {
     case "build":
       await build(manifest)
       break
+    case "audit": {
+      const targets = positional.length ? positional : manifest.themes.map((t) => t.name)
+      let errors = 0
+      for (const name of targets) {
+        const file = join(REGISTRY_DIR, `${name}.json`)
+        if (!existsSync(file)) throw new Error(`Unknown theme ${name}`)
+        const result = auditTheme(await readJson(file))
+        errors += result.findings.filter((f) => f.level === "error").length
+        console.log(formatFindings(name, result) + "\n")
+      }
+      if (flags.strict && errors) process.exit(1)
+      break
+    }
     case "check":
       await check()
       break
@@ -433,7 +449,7 @@ async function main() {
       break
     default:
       console.log(
-        "usage: themes.mjs <add|sync|build|check|list|default|remove> …\n" +
+        "usage: themes.mjs <add|sync|build|check|audit|list|default|remove> …\n" +
           "  add <url|file>… [--name x] [--title X] [--default] [--no-install]"
       )
       process.exit(cmd ? 1 : 0)

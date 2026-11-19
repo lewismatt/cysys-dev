@@ -60,7 +60,17 @@ pnpm themes:sync [name…]         # re-fetch from tweakcn after editing a theme
 pnpm themes default <name>       # theme used when no data-theme is set
 pnpm themes remove <name>
 pnpm themes:build                # regenerate after hand-editing registry/*.json
+pnpm themes:audit [name…]        # contrast + structure checks (add --strict to exit 1 on errors)
 ```
+
+### Auditing a theme
+
+`pnpm themes:audit` checks WCAG contrast for the token pairs our components actually render
+(e.g. focused menu items are `bg-accent` + `text-accent-foreground`, destructive buttons are
+`text-destructive` on `bg-destructive/10`), plus missing tokens, chart colors that are too faint or
+too similar, and out-of-gamut values. `✖` = text below 4.5:1 or invisible, `▲` = worth a look,
+`·` = informational. shadcn's own neutral defaults trigger the `·` items for focus rings and input
+borders too.
 
 ### How theming works
 
