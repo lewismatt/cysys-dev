@@ -31,8 +31,8 @@ export function WetBulbNow() {
   return (
     <Card>
       <CardHeader>
-        <CardDescription className="text-xs font-medium tracking-wide uppercase">Wet-bulb now</CardDescription>
-        <CardTitle className="text-3xl font-semibold tabular-nums">
+        <CardDescription className="font-mono text-xs tracking-wider uppercase">Wet-bulb now</CardDescription>
+        <CardTitle className="text-3xl font-medium tracking-tight">
           {now.wetBulb.toFixed(1)}°F
         </CardTitle>
         <CardAction>
@@ -40,7 +40,7 @@ export function WetBulbNow() {
         </CardAction>
       </CardHeader>
       <CardContent className="pb-0">
-        <ChartContainer config={wetBulbConfig} className="aspect-auto h-14 w-full">
+        <ChartContainer config={wetBulbConfig} className="aspect-auto h-14 w-full font-mono">
           <LineChart data={last24} margin={{ top: 4, bottom: 4, left: 0, right: 0 }}>
             <YAxis hide domain={["dataMin - 1", "dataMax + 1"]} />
             <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
@@ -54,7 +54,7 @@ export function WetBulbNow() {
           </LineChart>
         </ChartContainer>
       </CardContent>
-      <div className="mt-auto px-4 text-xs text-muted-foreground">
+      <div className="mt-auto px-4 font-mono text-xs text-muted-foreground">
         Last 24 hours · NWS Boulder hourly
       </div>
     </Card>
@@ -67,10 +67,10 @@ export function NextWindowStat() {
   return (
     <Card>
       <CardHeader>
-        <CardDescription className="text-xs font-medium tracking-wide uppercase">Next window</CardDescription>
-        <CardTitle className="text-3xl font-semibold tabular-nums">
+        <CardDescription className="font-mono text-xs tracking-wider uppercase">Next window</CardDescription>
+        <CardTitle className="text-3xl font-medium tracking-tight">
           {startTime}
-          <span className="px-1.5 text-muted-foreground">→</span>
+          <span className="px-2 text-muted-foreground">→</span>
           {endTime}
         </CardTitle>
       </CardHeader>
@@ -84,7 +84,7 @@ export function NextWindowStat() {
           <span className="text-foreground">{nextWindow.coldest}°F</span>
         </div>
       </CardContent>
-      <div className="mt-auto flex items-center gap-1.5 px-4 text-xs text-muted-foreground">
+      <div className="mt-auto flex items-center gap-1.5 px-4 font-mono text-xs text-muted-foreground">
         Shifts <span className="text-foreground">{nextWindow.shifts.join(" → ")}</span>
         <RatingPill
           rating={nextWindow.goodOrBetter >= 4 ? "favorable" : "marginal"}
@@ -100,19 +100,19 @@ export function WaterThisWeek() {
   return (
     <Card>
       <CardHeader>
-        <CardDescription className="text-xs font-medium tracking-wide uppercase">Water this week</CardDescription>
-        <CardTitle className="text-3xl font-semibold tabular-nums">
+        <CardDescription className="font-mono text-xs tracking-wider uppercase">Water this week</CardDescription>
+        <CardTitle className="text-3xl font-medium tracking-tight">
           {total.toFixed(1)}M
           <span className="ml-1 text-base font-normal text-muted-foreground">gal</span>
         </CardTitle>
         <CardAction>
-          <span className="text-xs text-muted-foreground">
+          <span className="font-mono text-xs text-muted-foreground">
             <span className="text-foreground">+18%</span> vs last week
           </span>
         </CardAction>
       </CardHeader>
       <CardContent className="pb-0">
-        <ChartContainer config={waterConfig} className="aspect-auto h-14 w-full">
+        <ChartContainer config={waterConfig} className="aspect-auto h-14 w-full font-mono">
           <BarChart data={waterByDay} margin={{ top: 4, bottom: 0, left: 0, right: 0 }}>
             <XAxis dataKey="day" hide />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
@@ -128,7 +128,7 @@ export function WaterThisWeek() {
           </BarChart>
         </ChartContainer>
       </CardContent>
-      <div className="mt-auto px-4 text-xs text-muted-foreground">
+      <div className="mt-auto px-4 font-mono text-xs text-muted-foreground">
         Mon – Sun · all pump houses
       </div>
     </Card>
@@ -141,14 +141,14 @@ export function GunsRunning() {
   return (
     <Card>
       <CardHeader>
-        <CardDescription className="text-xs font-medium tracking-wide uppercase">Guns running</CardDescription>
-        <CardTitle className="text-3xl font-semibold tabular-nums">
+        <CardDescription className="font-mono text-xs tracking-wider uppercase">Guns running</CardDescription>
+        <CardTitle className="text-3xl font-medium tracking-tight">
           {running}
           <span className="text-muted-foreground"> / {guns.length}</span>
         </CardTitle>
         {faults > 0 && (
           <CardAction>
-            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-no-window">
+            <span className="inline-flex items-center gap-1.5 font-mono text-xs text-no-window">
               <span className="size-1.5 rounded-full bg-no-window" aria-hidden />
               {faults} fault{faults === 1 ? "" : "s"}
             </span>
@@ -157,14 +157,14 @@ export function GunsRunning() {
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
         <Progress value={(running / guns.length) * 100} aria-label="Guns running" />
-        <div className="flex justify-between text-xs text-muted-foreground tabular-nums">
+        <div className="flex justify-between font-mono text-xs text-muted-foreground">
           <span>
             {guns.reduce((s, g) => s + g.gpm, 0)} gpm total
           </span>
           <span>{Math.round((running / guns.length) * 100)}%</span>
         </div>
       </CardContent>
-      <div className="mt-auto px-4 text-xs text-muted-foreground">
+      <div className="mt-auto px-4 font-mono text-xs text-muted-foreground">
         Updated 2 min ago
       </div>
     </Card>

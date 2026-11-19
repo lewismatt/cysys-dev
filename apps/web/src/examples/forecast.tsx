@@ -60,7 +60,7 @@ export function ForecastChart() {
         </CardAction>
       </CardHeader>
       <CardContent className="flex flex-1 flex-col px-2 sm:px-4">
-        <ChartContainer config={config} className="aspect-auto min-h-64 w-full flex-1">
+        <ChartContainer config={config} className="aspect-auto min-h-64 w-full flex-1 font-mono">
           <AreaChart data={data} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
             <CartesianGrid vertical={false} />
             {ZONES.map((z) => (

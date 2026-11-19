@@ -75,7 +75,7 @@ export function GunsTable() {
       </CardHeader>
       <CardContent className="px-0">
         <Table>
-          <TableHeader>
+          <TableHeader className="[&_th]:font-mono [&_th]:text-xs [&_th]:font-normal [&_th]:tracking-wider [&_th]:text-muted-foreground [&_th]:uppercase">
             <TableRow>
               <TableHead className="w-10 pl-4">
                 <Checkbox
@@ -105,12 +105,12 @@ export function GunsTable() {
                 <TableCell>{g.trail}</TableCell>
                 <TableCell className="hidden text-muted-foreground sm:table-cell">{g.type}</TableCell>
                 <TableCell>
-                  <span className={cn("inline-flex items-center gap-2", STATUS[g.status].text)}>
+                  <span className={cn("inline-flex items-center gap-2 font-mono text-[13px]", STATUS[g.status].text)}>
                     <span className={cn("size-1.5 rounded-full", STATUS[g.status].dot)} aria-hidden />
                     {STATUS[g.status].label}
                   </span>
                 </TableCell>
-                <TableCell className="pr-4 text-right tabular-nums">
+                <TableCell className="pr-4 text-right font-mono text-[13px]">
                   {g.gpm ? `${g.gpm} gpm` : "—"}
                 </TableCell>
               </TableRow>
@@ -125,7 +125,7 @@ export function GunsTable() {
           </TableBody>
         </Table>
       </CardContent>
-      <CardFooter className="mt-auto justify-between text-xs text-muted-foreground">
+      <CardFooter className="mt-auto justify-between font-mono text-xs text-muted-foreground">
         <span>
           {selected.size} of {guns.length} selected
         </span>
@@ -152,7 +152,7 @@ export function CrewCard() {
             </Avatar>
             <div className="min-w-0 flex-1">
               <div className="truncate font-medium">{c.name}</div>
-              <div className="truncate text-xs text-muted-foreground">{c.email}</div>
+              <div className="truncate font-mono text-xs text-muted-foreground">{c.email}</div>
             </div>
             <Select defaultValue={c.role}>
               <SelectTrigger size="sm" className="w-32" aria-label={`${c.name} role`}>
@@ -185,7 +185,7 @@ export function PumpHouse() {
           <div key={p.name} className="flex flex-col gap-1.5">
             <div className="flex justify-between">
               <span>{p.name}</span>
-              <span className="text-muted-foreground tabular-nums">{p.load}%</span>
+              <span className="font-mono text-muted-foreground">{p.load}%</span>
             </div>
             <Progress value={p.load} aria-label={`${p.name} load`} />
           </div>

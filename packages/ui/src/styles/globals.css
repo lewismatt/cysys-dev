@@ -15,7 +15,7 @@
     --font-sans: var(--font-sans);
     --font-serif: var(--font-serif);
     --font-mono: var(--font-mono);
-    --font-heading: var(--font-sans);
+    --font-heading: var(--font-heading);
     --shadow-2xs: var(--shadow-2xs);
     --shadow-xs: var(--shadow-xs);
     --shadow-sm: var(--shadow-sm);
@@ -91,6 +91,8 @@
  */
 :root {
     --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+    /* Card titles and page headings; themes may point this at --font-mono. */
+    --font-heading: var(--font-sans);
     --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     --tracking-normal: 0em;

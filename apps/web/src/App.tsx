@@ -45,9 +45,9 @@ export function App() {
             <span className="flex size-7 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <MountainSnowIcon className="size-4" />
             </span>
-            <span>Cynerdyne</span>
+            <span className="font-mono font-medium tracking-tight lowercase">cynerdyne</span>
           </a>
-          <nav className="order-last flex w-full items-center gap-4 text-sm sm:order-none sm:w-auto">
+          <nav className="order-last flex w-full items-center gap-4 font-mono text-[13px] sm:order-none sm:w-auto">
             {PAGES.map((p) => (
               <a
                 key={p.id}
@@ -74,7 +74,7 @@ export function App() {
       </main>
 
       <footer className="border-t py-6 text-center text-xs text-muted-foreground">
-        {themeCount} themes · press{" "}
+        <span className="font-mono">{themeCount} themes</span> · press{" "}
         <kbd className="rounded border px-1 font-mono">d</kbd> to toggle dark mode
       </footer>
     </div>
@@ -124,7 +124,7 @@ function Section({
   return (
     <section className="flex flex-col gap-4">
       <div>
-        <h2 className="text-lg font-semibold tracking-tight">{title}</h2>
+        <h2 className="font-heading text-lg font-medium tracking-tight">{title}</h2>
         {description && <p className="text-sm text-muted-foreground">{description}</p>}
       </div>
       {children}

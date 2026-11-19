@@ -26,7 +26,7 @@ function StatusText({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 text-xs font-medium whitespace-nowrap",
+        "inline-flex items-center gap-1.5 font-mono text-xs whitespace-nowrap",
         text,
         className
       )}

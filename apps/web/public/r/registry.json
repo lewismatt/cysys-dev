@@ -275,7 +275,7 @@
       "name": "eldora-night",
       "type": "registry:style",
       "title": "Eldora Night",
-      "description": "Eldora Night from the Eldora snowmaking dashboard (docs/product/DESIGN.md) as a shadcn theme: logo orange #e65400, warm near-black surfaces, cream text, and the dashboard's status colors (softened for a calmer, professional look; all AA) (prime/good/marginal/no-window/wind/stale) as tokens. Dark = Eldora Night; light = a warm daylight companion using the dashboard's AA light status colors. Charts: 1 brand, 2 Good, 3 Prime, 4 Marginal, 5 wind.",
+      "description": "Eldora Night from the Eldora snowmaking dashboard (docs/product/DESIGN.md) as a shadcn theme: logo orange #e65400, warm near-black surfaces, cream text, and the dashboard's status colors (softened for a calmer, professional look; all AA) (prime/good/marginal/no-window/wind/stale) as tokens. Dark = Eldora Night; light = a warm daylight companion using the dashboard's AA light status colors. Charts: 1 brand, 2 Good, 3 Prime, 4 Marginal, 5 wind. Headings use Geist Mono.",
       "cssVars": {
         "theme": {
           "font-sans": "'Geist Variable', 'Geist', ui-sans-serif, system-ui, sans-serif",
@@ -293,7 +293,8 @@
           "color-on-no-window": "var(--on-no-window)",
           "color-wind": "var(--wind)",
           "color-stale": "var(--stale)",
-          "color-link": "var(--link)"
+          "color-link": "var(--link)",
+          "font-heading": "var(--font-mono)"
         },
         "light": {
           "background": "#fcfaf7",

@@ -44,15 +44,15 @@ function ShiftRow({ shift, first }: { shift: Shift; first: boolean }) {
     <div className="flex flex-col gap-2.5 py-3 first:pt-0 last:pb-0">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <div className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+          <div className="font-mono text-xs tracking-wider text-muted-foreground uppercase">
             {shift.startsIn === 0
               ? `In progress · ${shift.hours.length} h left`
               : `Starts in ${shift.startsIn} h`}
           </div>
           <div className="font-medium">{shift.name}</div>
-          <div className="text-xs text-muted-foreground">
-            {shift.range} · coldest {shift.coldest.toFixed(1)}°F
-            {shift.windowHours > 0 && ` · ${shift.windowHours} h in window`}
+          <div className="font-mono text-xs text-muted-foreground">
+            {shift.range.replace(" – ", "–")} · min {shift.coldest.toFixed(1)}°
+            {shift.windowHours > 0 && ` · ${shift.windowHours}h window`}
           </div>
         </div>
         <RatingPill rating={shift.rating} />
@@ -69,7 +69,7 @@ function ShiftRow({ shift, first }: { shift: Shift; first: boolean }) {
           />
         ))}
       </div>
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs text-muted-foreground">
         {(Object.keys(counts) as Band[]).map((b) => (
           <span key={b} className="inline-flex items-center gap-1.5">
             <span className={cn("size-2 rounded-full", BAND_SWATCH[b])} aria-hidden />
