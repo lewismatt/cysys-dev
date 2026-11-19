@@ -14,11 +14,13 @@
     "themes:build": "node packages/themes/scripts/themes.mjs build",
     "themes:check": "node packages/themes/scripts/themes.mjs check",
     "ui:add": "pnpm dlx shadcn@latest add -c apps/web",
-    "themes:audit": "node packages/themes/scripts/themes.mjs audit"
+    "themes:audit": "node packages/themes/scripts/themes.mjs audit",
+    "registry:build": "shadcn build packages/themes/registry.json -o apps/web/public/r"
   },
   "devDependencies": {
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1",
+    "shadcn": "4.23.0",
     "turbo": "^2.11.10",
     "typescript": "~6.0.2"
   },

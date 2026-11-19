@@ -31,10 +31,12 @@ const config = {
   wetBulb: { label: "Wet-bulb", color: "var(--chart-1)" },
 } satisfies ChartConfig
 
-const THRESHOLDS = [
-  { y: 28, label: "28° qualifies" },
-  { y: 24, label: "24° Good" },
-  { y: 20, label: "20° Prime" },
+// Band zones, as on the Eldora dashboard's chart: each tinted with its
+// status color and labeled with its word.
+const ZONES = [
+  { y1: 24, y2: 28, color: "var(--marginal)", label: "Marginal" },
+  { y1: 20, y2: 24, color: "var(--good)", label: "Good" },
+  { y1: 8, y2: 20, color: "var(--prime)", label: "Prime" },
 ]
 
 export function ForecastChart() {
@@ -46,7 +48,7 @@ export function ForecastChart() {
       <CardHeader>
         <CardTitle>Wet-bulb forecast</CardTitle>
         <CardDescription>
-          Shaded spans are snowmaking windows: 5+ hours at or below 28°F.
+          Orange marks snowmaking windows: 5+ hours at or below 28°F.
         </CardDescription>
         <CardAction>
           <Tabs value={range} onValueChange={setRange}>
@@ -57,39 +59,50 @@ export function ForecastChart() {
           </Tabs>
         </CardAction>
       </CardHeader>
-      <CardContent className="px-2 sm:px-4">
-        <ChartContainer config={config} className="aspect-auto h-64 w-full">
+      <CardContent className="flex flex-1 flex-col px-2 sm:px-4">
+        <ChartContainer config={config} className="aspect-auto min-h-64 w-full flex-1">
           <AreaChart data={data} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
             <defs>
               <linearGradient id="fillWetBulb" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="var(--color-wetBulb)" stopOpacity={0.25} />
+                <stop offset="5%" stopColor="var(--color-wetBulb)" stopOpacity={0.18} />
                 <stop offset="95%" stopColor="var(--color-wetBulb)" stopOpacity={0.02} />
               </linearGradient>
             </defs>
             <CartesianGrid vertical={false} />
+            {ZONES.map((z) => (
+              <ReferenceArea
+                key={z.label}
+                y1={z.y1}
+                y2={z.y2}
+                fill={z.color}
+                fillOpacity={0.07}
+                ifOverflow="hidden"
+                label={{
+                  value: z.label,
+                  position: "insideTopRight",
+                  fill: z.color,
+                  fontSize: 11,
+                  fontWeight: 500,
+                }}
+              />
+            ))}
+            <ReferenceLine
+              y={28}
+              stroke="var(--muted-foreground)"
+              strokeOpacity={0.6}
+              strokeDasharray="3 4"
+            />
+            {/* Qualifying windows: a brand-orange strip along the bottom. */}
             {windows.map((w) => (
               <ReferenceArea
                 key={w.from}
                 x1={data[w.from]?.label}
                 x2={data[Math.min(w.to, data.length - 1)]?.label}
-                fill="var(--color-wetBulb)"
-                fillOpacity={0.08}
+                y1={8}
+                y2={9}
+                fill="var(--primary)"
+                fillOpacity={1}
                 ifOverflow="hidden"
-              />
-            ))}
-            {THRESHOLDS.map((t) => (
-              <ReferenceLine
-                key={t.y}
-                y={t.y}
-                stroke="var(--muted-foreground)"
-                strokeOpacity={0.5}
-                strokeDasharray="3 4"
-                label={{
-                  value: t.label,
-                  position: "insideTopRight",
-                  fill: "var(--muted-foreground)",
-                  fontSize: 11,
-                }}
               />
             ))}
             <XAxis

@@ -3,14 +3,24 @@
   "name": "eldora-night",
   "type": "registry:style",
   "title": "Eldora Night",
-  "description": "Cynerdyne take on the Eldora snowmaking dashboard's Eldora Night palette (eldora-snowmaking-dashboard docs/product/DESIGN.md) with the Eldora logo orange #e65400, mapped onto shadcn tokens with shadcn's own Geist typography. Dark = Eldora Night; light = a warm daylight companion. Charts follow the dashboard's semantics: 1 brand, 2 Good, 3 Prime, 4 Marginal, 5 wind.",
+  "description": "Eldora Night from the Eldora snowmaking dashboard (docs/product/DESIGN.md) as a shadcn theme: logo orange #e65400, warm near-black surfaces, cream text, and the dashboard's status colors (prime/good/marginal/no-window/wind/stale) as tokens. Dark = Eldora Night; light = a warm daylight companion using the dashboard's AA light status colors. Charts: 1 brand, 2 Good, 3 Prime, 4 Marginal, 5 wind.",
   "cssVars": {
     "theme": {
-      "font-sans": "'Geist', ui-sans-serif, system-ui, sans-serif",
-      "font-mono": "'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace",
+      "font-sans": "'Geist Variable', 'Geist', ui-sans-serif, system-ui, sans-serif",
+      "font-mono": "'Geist Mono Variable', 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace",
       "font-serif": "ui-serif, Georgia, Cambria, 'Times New Roman', serif",
       "radius": "0.625rem",
-      "tracking-normal": "0em"
+      "tracking-normal": "0em",
+      "color-prime": "var(--prime)",
+      "color-on-prime": "var(--on-prime)",
+      "color-good": "var(--good)",
+      "color-on-good": "var(--on-good)",
+      "color-marginal": "var(--marginal)",
+      "color-on-marginal": "var(--on-marginal)",
+      "color-no-window": "var(--no-window)",
+      "color-on-no-window": "var(--on-no-window)",
+      "color-wind": "var(--wind)",
+      "color-stale": "var(--stale)"
     },
     "light": {
       "background": "#fcfaf7",
@@ -52,14 +62,24 @@
       "shadow-md": "0 4px 6px -1px rgb(26 18 10 / 0.08), 0 2px 4px -2px rgb(26 18 10 / 0.08)",
       "shadow-lg": "0 10px 15px -3px rgb(26 18 10 / 0.08), 0 4px 6px -4px rgb(26 18 10 / 0.08)",
       "shadow-xl": "0 20px 25px -5px rgb(26 18 10 / 0.08), 0 8px 10px -6px rgb(26 18 10 / 0.08)",
-      "shadow-2xl": "0 25px 50px -12px rgb(26 18 10 / 0.2)"
+      "shadow-2xl": "0 25px 50px -12px rgb(26 18 10 / 0.2)",
+      "prime": "#007b22",
+      "on-prime": "#ffffff",
+      "good": "#006caf",
+      "on-good": "#ffffff",
+      "marginal": "#ac4b01",
+      "on-marginal": "#ffffff",
+      "no-window": "#cc1616",
+      "on-no-window": "#ffffff",
+      "wind": "#6d28d9",
+      "stale": "#6b5344"
     },
     "dark": {
       "background": "#0a0603",
       "foreground": "#f3ead9",
-      "card": "#120b06",
+      "card": "#170f08",
       "card-foreground": "#f3ead9",
-      "popover": "#170f08",
+      "popover": "#23170b",
       "popover-foreground": "#f3ead9",
       "primary": "#e65400",
       "primary-foreground": "#1a120a",
@@ -67,12 +87,12 @@
       "secondary-foreground": "#f3ead9",
       "muted": "#23170b",
       "muted-foreground": "#cdb491",
-      "accent": "#2b1d10",
+      "accent": "#3a2a1c",
       "accent-foreground": "#f3ead9",
       "destructive": "#f87171",
       "destructive-foreground": "#1a120a",
-      "border": "#2e2014",
-      "input": "#422f1d",
+      "border": "#3b2a1c",
+      "input": "#4a3421",
       "ring": "#e65400",
       "chart-1": "#e65400",
       "chart-2": "#38bdf8",
@@ -85,7 +105,7 @@
       "sidebar-primary-foreground": "#1a120a",
       "sidebar-accent": "#23170b",
       "sidebar-accent-foreground": "#f3ead9",
-      "sidebar-border": "#2e2014",
+      "sidebar-border": "#3b2a1c",
       "sidebar-ring": "#e65400",
       "shadow-2xs": "0 1px 0 0 rgb(0 0 0 / 0.3)",
       "shadow-xs": "0 1px 2px 0 rgb(0 0 0 / 0.35)",
@@ -94,14 +114,36 @@
       "shadow-md": "0 4px 6px -1px rgb(0 0 0 / 0.45), 0 2px 4px -2px rgb(0 0 0 / 0.45)",
       "shadow-lg": "0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5)",
       "shadow-xl": "0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.5)",
-      "shadow-2xl": "0 25px 50px -12px rgb(0 0 0 / 0.7)"
+      "shadow-2xl": "0 25px 50px -12px rgb(0 0 0 / 0.7)",
+      "prime": "#4ade80",
+      "on-prime": "#1a120a",
+      "good": "#38bdf8",
+      "on-good": "#1a120a",
+      "marginal": "#fbbf24",
+      "on-marginal": "#1a120a",
+      "no-window": "#f87171",
+      "on-no-window": "#1a120a",
+      "wind": "#e9d5ff",
+      "stale": "#e6d3bc"
     }
   },
   "css": {
     "@layer base": {
+      "html": {
+        "scrollbar-color": "var(--input) transparent"
+      },
       "body": {
-        "letter-spacing": "var(--tracking-normal)"
+        "letter-spacing": "var(--tracking-normal)",
+        "font-variant-numeric": "tabular-nums"
+      },
+      "::selection": {
+        "background-color": "color-mix(in oklab, var(--primary) 35%, transparent)",
+        "color": "var(--foreground)"
       }
     }
-  }
+  },
+  "dependencies": [
+    "@fontsource-variable/geist",
+    "@fontsource-variable/geist-mono"
+  ]
 }

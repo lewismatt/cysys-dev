@@ -1,7 +1,6 @@
 import * as React from "react"
-import { CopyIcon, FanIcon, LayersIcon, RadioTowerIcon } from "lucide-react"
+import { FanIcon, LayersIcon, RadioTowerIcon } from "lucide-react"
 
-import { Avatar, AvatarFallback } from "@cysys/ui/components/avatar"
 import { Button } from "@cysys/ui/components/button"
 import {
   Card,
@@ -25,7 +24,6 @@ import { Separator } from "@cysys/ui/components/separator"
 import { Switch } from "@cysys/ui/components/switch"
 import { Textarea } from "@cysys/ui/components/textarea"
 
-import { crew } from "./data"
 
 const MODES = [
   { value: "fan", label: "Fan guns", icon: FanIcon },
@@ -158,36 +156,6 @@ export function IssueCard() {
         <Button variant="ghost">Cancel</Button>
         <Button>Submit</Button>
       </CardFooter>
-    </Card>
-  )
-}
-
-export function ShareCard() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Share forecast</CardTitle>
-        <CardDescription>Anyone with the link can view this page.</CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-4">
-        <div className="flex gap-2">
-          <Input readOnly value="https://snow.cysys.dev/s/9f2kq" aria-label="Share link" className="font-mono text-xs" />
-          <Button variant="outline" size="icon" aria-label="Copy link">
-            <CopyIcon />
-          </Button>
-        </div>
-        <Separator />
-        <div className="text-xs font-medium text-muted-foreground">People with access</div>
-        {crew.slice(0, 3).map((c, i) => (
-          <div key={c.email} className="flex items-center gap-3">
-            <Avatar size="sm">
-              <AvatarFallback>{c.initials}</AvatarFallback>
-            </Avatar>
-            <div className="min-w-0 flex-1 truncate">{c.name}</div>
-            <span className="text-xs text-muted-foreground">{i === 0 ? "Owner" : "Can view"}</span>
-          </div>
-        ))}
-      </CardContent>
     </Card>
   )
 }

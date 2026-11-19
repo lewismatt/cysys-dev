@@ -83,9 +83,9 @@ export const themes = [
     "title": "Eldora Night",
     "source": "hand-authored: packages/themes/registry/eldora-night.json",
     "fonts": {
-      "sans": "Geist",
+      "sans": "Geist Variable",
       "serif": "ui-serif",
-      "mono": "Geist Mono"
+      "mono": "Geist Mono Variable"
     },
     "radius": "0.625rem",
     "swatches": {
@@ -103,9 +103,9 @@ export const themes = [
         "foreground": "#f3ead9",
         "primary": "#e65400",
         "secondary": "#23170b",
-        "accent": "#2b1d10",
+        "accent": "#3a2a1c",
         "muted": "#23170b",
-        "border": "#2e2014"
+        "border": "#3b2a1c"
       }
     }
   }

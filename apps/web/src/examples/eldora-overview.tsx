@@ -2,9 +2,10 @@ import { CalendarClockIcon, DownloadIcon } from "lucide-react"
 
 import { Button } from "@cysys/ui/components/button"
 
-import { AlertsCard, IssueCard, ModeCard, ShareCard } from "./controls"
+import { AlertsCard, IssueCard, ModeCard } from "./controls"
 import { ForecastChart } from "./forecast"
 import { CrewCard, GunsTable, PumpHouse } from "./operations"
+import { UpcomingShifts } from "./shifts"
 import { GunsRunning, NextWindowStat, WaterThisWeek, WetBulbNow } from "./stats"
 
 /**
@@ -43,7 +44,7 @@ export function EldoraOverview() {
 
       <div className="grid gap-4 lg:grid-cols-3">
         <ForecastChart />
-        <CrewCard />
+        <UpcomingShifts />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
@@ -57,7 +58,7 @@ export function EldoraOverview() {
       <div className="grid items-start gap-4 md:grid-cols-2 lg:grid-cols-3">
         <ModeCard />
         <IssueCard />
-        <ShareCard />
+        <CrewCard />
       </div>
     </div>
   )

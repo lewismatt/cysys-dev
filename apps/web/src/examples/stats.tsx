@@ -18,7 +18,7 @@ import {
 } from "@cysys/ui/components/chart"
 import { Progress } from "@cysys/ui/components/progress"
 
-import { BandLabel } from "./band"
+import { BandLabel, RatingPill } from "./band"
 import { bandOf, guns, last24, nextWindow, now, waterByDay } from "./data"
 
 const wetBulbConfig = {
@@ -33,7 +33,7 @@ export function WetBulbNow() {
   return (
     <Card>
       <CardHeader>
-        <CardDescription>Wet-bulb now</CardDescription>
+        <CardDescription className="text-[11px] font-medium tracking-wider uppercase">Wet-bulb now</CardDescription>
         <CardTitle className="text-3xl font-semibold tabular-nums">
           {now.wetBulb.toFixed(1)}°F
         </CardTitle>
@@ -69,15 +69,12 @@ export function NextWindowStat() {
   return (
     <Card>
       <CardHeader>
-        <CardDescription>Next window</CardDescription>
+        <CardDescription className="text-[11px] font-medium tracking-wider uppercase">Next window</CardDescription>
         <CardTitle className="text-3xl font-semibold tabular-nums">
           {startTime}
           <span className="px-1.5 text-muted-foreground">→</span>
           {endTime}
         </CardTitle>
-        <CardAction>
-          <Badge>Favorable</Badge>
-        </CardAction>
       </CardHeader>
       <CardContent className="flex flex-col gap-1 text-muted-foreground">
         <div>
@@ -96,6 +93,10 @@ export function NextWindowStat() {
             {s}
           </Badge>
         ))}
+        <RatingPill
+          rating={nextWindow.goodOrBetter >= 4 ? "favorable" : "marginal"}
+          className="ml-auto"
+        />
       </CardFooter>
     </Card>
   )
@@ -106,7 +107,7 @@ export function WaterThisWeek() {
   return (
     <Card>
       <CardHeader>
-        <CardDescription>Water this week</CardDescription>
+        <CardDescription className="text-[11px] font-medium tracking-wider uppercase">Water this week</CardDescription>
         <CardTitle className="text-3xl font-semibold tabular-nums">
           {total.toFixed(1)}M
           <span className="ml-1 text-base font-normal text-muted-foreground">gal</span>
@@ -137,7 +138,7 @@ export function GunsRunning() {
   return (
     <Card>
       <CardHeader>
-        <CardDescription>Guns running</CardDescription>
+        <CardDescription className="text-[11px] font-medium tracking-wider uppercase">Guns running</CardDescription>
         <CardTitle className="text-3xl font-semibold tabular-nums">
           {running}
           <span className="text-muted-foreground"> / {guns.length}</span>

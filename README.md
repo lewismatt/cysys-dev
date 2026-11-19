@@ -17,13 +17,42 @@ pnpm workspaces + Turborepo · React 19 · Tailwind CSS v4 · shadcn `radix-nova
 
 | Theme | Source | Notes |
 | --- | --- | --- |
-| **Eldora Night** (default) | hand-authored, `registry/eldora-night.json` | Eldora Night palette from the snowmaking dashboard, logo orange `#E65400`, Geist type. Dark = Eldora Night, light = warm daylight companion. Audit: no errors. |
+| **Eldora Night** (default) | hand-authored, `registry/eldora-night.json` | The Eldora snowmaking dashboard's Eldora Night palette as a shadcn theme: logo orange `#E65400`, warm near-black surfaces, cream text, Geist type, and the dashboard's status colors as tokens. Dark = Eldora Night, light = warm daylight companion. Audit: no errors. |
 | Eldo | tweakcn | Audit flags menu-hover and contrast issues (see `pnpm themes:audit`). |
 | Eldo 2 | tweakcn | Same as Eldo. |
 
 The playground's **Overview** page (`#/overview`) is an example dashboard in the style of the
 shadcn/ui examples, built with Eldora snowmaking demo data. **Components** (`#/components`) is the
 kitchen sink: every component, the theme's tokens, typography, and all themes side by side.
+
+## Eldora Night
+
+**Status tokens.** Besides the standard shadcn tokens, Eldora Night defines the dashboard's
+status colors. They work as Tailwind utilities anywhere in `@cysys/ui`:
+
+| Token | Utility | Meaning |
+| --- | --- | --- |
+| `--prime` / `--on-prime` | `bg-prime text-on-prime` | Wet-bulb ≤ 20°F |
+| `--good` / `--on-good` | `bg-good text-on-good` | ≤ 24°F |
+| `--marginal` / `--on-marginal` | `bg-marginal text-on-marginal` | ≤ 28°F |
+| `--no-window` / `--on-no-window` | `bg-no-window text-on-no-window` | Not qualifying |
+| `--wind`, `--stale` | `text-wind`, `text-stale` | Wind flags, stale data |
+
+As on the dashboard, color repeats a word and never replaces one: always print the label.
+Orange is the brand and never a status. Other themes get neutral fallbacks for these tokens.
+
+**Using it in another shadcn project** (no monorepo needed):
+
+```bash
+pnpm registry:build    # writes apps/web/public/r/<theme>.json (served by the playground)
+pnpm dlx shadcn@latest add https://<playground-host>/r/eldora-night.json
+# or straight from a checkout:
+pnpm dlx shadcn@latest add /path/to/cysys-dev/apps/web/public/r/eldora-night.json
+```
+
+The CLI writes the tokens into your CSS file and installs the Geist font packages. It doesn't
+import Geist Mono, so add `@import "@fontsource-variable/geist-mono";` to that CSS file. (Geist Sans
+is already imported by shadcn's default preset.)
 
 ## Getting started
 
@@ -73,6 +102,7 @@ pnpm themes default <name>       # theme used when no data-theme is set
 pnpm themes remove <name>
 pnpm themes:build                # regenerate after hand-editing registry/*.json
 pnpm themes:audit [name…]        # contrast + structure checks (add --strict to exit 1 on errors)
+pnpm registry:build              # publish themes as shadcn registry items in apps/web/public/r
 ```
 
 ### Auditing a theme

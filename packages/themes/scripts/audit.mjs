@@ -38,6 +38,14 @@ const PAIRS = [
   ["primary", "background", 3, "checked switch/checkbox fill", "warn"],
   ["ring/50", "background", 3, "focus ring (ring-ring/50)", "info"],
   ["input", "background", 3, "input/checkbox borders", "info"],
+  // Optional status tokens (Eldora Night): text on filled chips, and the
+  // color used as text on cards. Skipped when a theme doesn't define them.
+  ...["prime", "good", "marginal", "no-window"].flatMap((s) => [
+    [`on-${s}`, s, 4.5, `${s} chip text`, "error", true],
+    [s, "card", 4.5, `${s} as text on cards`, "error", true],
+  ]),
+  ["wind", "card", 4.5, "wind as text on cards", "warn", true],
+  ["stale", "card", 4.5, "stale as text on cards", "warn", true],
 ]
 
 // ---------------------------------------------------------------------------
@@ -137,7 +145,8 @@ export function auditTheme(item) {
     }
     const background = bgParsed.alpha < 1 ? over(bgParsed, { rgb: [1, 1, 1], alpha: 1 }) : bgParsed
 
-    for (const [fgRef, bgRef, min, where, level] of PAIRS) {
+    for (const [fgRef, bgRef, min, where, level, optional] of PAIRS) {
+      if (optional && !(fgRef.split("/")[0] in vars && bgRef.split("/")[0] in vars)) continue
       const bg = resolve(vars, bgRef, background)
       const fg = bg.color && resolve(vars, fgRef, bg.color)
       const err = bg.error ?? fg?.error

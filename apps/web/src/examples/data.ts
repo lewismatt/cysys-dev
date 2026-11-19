@@ -99,6 +99,8 @@ export const guns: Gun[] = [
   { id: "T-07", trail: "Corona", type: "Tower", status: "standby", gpm: 0 },
   { id: "F-21", trail: "Jolly Jug", type: "Fan", status: "fault", gpm: 0 },
   { id: "T-11", trail: "Indian Peaks", type: "Tower", status: "running", gpm: 38 },
+  { id: "F-30", trail: "Muleshoe", type: "Fan", status: "standby", gpm: 0 },
+  { id: "T-15", trail: "Indian Peaks", type: "Tower", status: "running", gpm: 36 },
 ]
 
 export const crew = [
@@ -113,3 +115,56 @@ export const pumps = [
   { name: "Pump 2", load: 72 },
   { name: "Booster", load: 41 },
 ]
+
+// ---------------------------------------------------------------------------
+// Shifts (Day 07:00–19:00, Night 19:00–07:00) and ratings per SNOWMAKING.md:
+// Favorable = a window overlaps and ≥ 4 of the overlapping hours are Good or
+// better; Marginal = overlaps with fewer; otherwise No window.
+
+export type Rating = "favorable" | "marginal" | "none"
+
+const inWindow = (i: number) => windows.some((w) => i >= w.from && i <= w.to)
+
+export type Shift = {
+  name: string
+  range: string
+  startsIn: number // hours from now; 0 = in progress
+  hours: { band: Band; inWindow: boolean; wetBulb: number }[]
+  rating: Rating
+  coldest: number
+  windowHours: number
+}
+
+function buildShifts(): Shift[] {
+  // Group forecast hours into shifts, splitting at 07:00 and 19:00.
+  const groups: number[][] = []
+  forecast.forEach((h, i) => {
+    if (i === 0 || h.hour === 7 || h.hour === 19) groups.push([])
+    groups[groups.length - 1].push(i)
+  })
+  return groups.map((idx) => {
+    const startIdx = idx[0]
+    const first = forecast[idx[0]]
+    const kind = first.hour >= 7 && first.hour < 19 ? "Day" : "Night"
+    const startHour = kind === "Day" ? 7 : 19
+    const hours = idx.map((i) => ({
+      band: bandOf(forecast[i].wetBulb),
+      inWindow: inWindow(i),
+      wetBulb: forecast[i].wetBulb,
+    }))
+    const overlap = hours.filter((h) => h.inWindow)
+    const goodOrBetter = overlap.filter((h) => h.wetBulb <= 24).length
+    const day = DAYS[first.day]
+    return {
+      name: `${kind} · ${day}`,
+      range: `${String(startHour).padStart(2, "0")}:00 – ${String((startHour + 12) % 24).padStart(2, "0")}:00`,
+      startsIn: startIdx,
+      hours,
+      rating: overlap.length === 0 ? "none" : goodOrBetter >= 4 ? "favorable" : "marginal",
+      coldest: Math.min(...hours.map((h) => h.wetBulb)),
+      windowHours: overlap.length,
+    }
+  })
+}
+
+export const shifts = buildShifts()
