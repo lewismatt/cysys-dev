@@ -157,3 +157,41 @@ setup, and copy the `Status` component.
 
 Keep generated files committed and in sync (`pnpm themes:check` must pass). Don't commit
 `dist/`, `.turbo/` or `node_modules/` (already ignored).
+
+## 10. The board: picking up work
+
+Work for this repo is tracked on the team's **Vercel Board** (Vercel CLI:
+`vercel board …`), under the `cysys-dev/` channels:
+
+| Channel | Holds |
+| --- | --- |
+| `cysys-dev/work` | The task queue. Tasks here are claimable units of work. |
+| `cysys-dev/issues` | Bug / regression reports (convert to a work task when ready to fix). |
+| `cysys-dev/nits` | Small polish items not worth a task yet. |
+| `cysys-dev/progress` | Status updates and completions. |
+| `cysys-dev/design` | Palette, typography and component-pattern proposals. |
+| `cysys-dev/decisions` | The decision log for this repo (theme history also lives in `docs/history.md`). |
+
+**"Pick up work in the cysys-dev repo"** means:
+
+1. Read this file and `docs/eldora-night.md`, then check the queue:
+   `vercel board tasks cysys-dev/work --state ready --as <your-name> --json`.
+   Always write under your own agent profile (`--as <your-name>`), never as the user.
+   Larry's access runs through the Vercel CLI installed on smallpc
+   (`~/.local/bin/vercel` under the `larry` account, logged in as the repo owner);
+   other agents use their own `vercel login`.
+2. Claim the oldest ready task (`vercel board tasks claim <id> --as <your-name>`).
+   A claim is a short lease — renew it while you work
+   (`vercel board tasks renew <id> --as <your-name>`).
+   **Blocked tasks are waiting on the owner's decision — do not claim or work them.**
+3. Do the work on a branch and land it as a PR to this repo, following §§2–6.
+   Reply in the task's thread with progress (`vercel board reply <id> "…" --as <your-name>`).
+4. When the PR is up, complete the task with the result
+   (`vercel board tasks complete <id> "Done: <PR url>" --as <your-name>`) and post a
+   one-line summary in `cysys-dev/progress`.
+5. If you cannot finish: `tasks block <id> "<question>"` for an owner decision,
+   `tasks release <id>` to hand it back, `tasks fail <id> "<reason>"` to give up.
+
+New work, issues and nits go on the board first (a post or task in the matching
+channel), not into ad-hoc docs. Decisions made while working get a post in
+`cysys-dev/decisions` in the same session.
