@@ -77,13 +77,44 @@ export const themes = [
         "border": "oklch(0.2739 0.0055 286.0326)"
       }
     }
+  },
+  {
+    "name": "eldora-night",
+    "title": "Eldora Night",
+    "source": "hand-authored: packages/themes/registry/eldora-night.json",
+    "fonts": {
+      "sans": "Geist",
+      "serif": "ui-serif",
+      "mono": "Geist Mono"
+    },
+    "radius": "0.625rem",
+    "swatches": {
+      "light": {
+        "background": "#fcfaf7",
+        "foreground": "#1a120a",
+        "primary": "#e65400",
+        "secondary": "#f4eee6",
+        "accent": "#f4eee6",
+        "muted": "#f4eee6",
+        "border": "#e9e0d4"
+      },
+      "dark": {
+        "background": "#0a0603",
+        "foreground": "#f3ead9",
+        "primary": "#e65400",
+        "secondary": "#23170b",
+        "accent": "#2b1d10",
+        "muted": "#23170b",
+        "border": "#2e2014"
+      }
+    }
   }
 ] as const satisfies readonly CysysTheme[]
 
 export type ThemeName = (typeof themes)[number]["name"]
 
 /** Applied via `:root:not([data-theme])` when no theme is selected. */
-export const defaultTheme = "eldo-1" as ThemeName
+export const defaultTheme = "eldora-night" as ThemeName
 
 export const themeNames: readonly ThemeName[] = themes.map((t) => t.name)
 

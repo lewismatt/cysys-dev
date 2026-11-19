@@ -6,11 +6,10 @@
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/jetbrains-mono";
 
-:root:not([data-theme]),
 :root[data-theme="eldo-1"],
 [data-theme="eldo-1"] {
-  --font-sans: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Inter Variable', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
   --font-serif: 'Georgia', serif;
   --radius: 0.5rem;
   --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
@@ -69,7 +68,6 @@
   --tracking-normal: -0.01em;
 }
 
-:root.dark:not([data-theme]),
 :root[data-theme="eldo-1"].dark,
 [data-theme="eldo-1"].dark,
 .dark [data-theme="eldo-1"] {
@@ -106,9 +104,9 @@
   --sidebar-accent-foreground: oklch(0.6634 0.1994 41.8070);
   --sidebar-border: oklch(0.3068 0.0337 54.7785);
   --sidebar-ring: oklch(0.6634 0.1994 41.8070);
-  --font-sans: 'Inter', sans-serif;
+  --font-sans: 'Inter Variable', 'Inter', sans-serif;
   --font-serif: 'Georgia', serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
   --shadow-color: rgba(0,0,0,0.5);
   --shadow-opacity: 0.5;
   --shadow-blur: 20px;
@@ -128,7 +126,7 @@
 }
 
 @layer base {
-  :root:not([data-theme]), :root[data-theme="eldo-1"], [data-theme="eldo-1"] {
+  :root[data-theme="eldo-1"], [data-theme="eldo-1"] {
     letter-spacing: var(--tracking-normal);
   }
 }

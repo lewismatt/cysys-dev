@@ -42,7 +42,7 @@ export function ThemeSelect() {
 
   return (
     <Select value={theme ?? undefined} onValueChange={setTheme}>
-      <SelectTrigger className="w-52" aria-label="Theme">
+      <SelectTrigger className="w-36 sm:w-48" aria-label="Theme">
         <SelectValue placeholder="Theme" />
       </SelectTrigger>
       <SelectContent position="popper" align="end">

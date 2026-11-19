@@ -15,6 +15,7 @@ createRoot(document.getElementById("root")!).render(
     <ThemeProvider
       themes={[...themeNames, BASELINE_THEME]}
       defaultTheme={defaultTheme}
+      defaultMode="dark"
       enableHotkey
     >
       <TooltipProvider>

@@ -186,13 +186,32 @@ function serializeCss(obj, scopeSel, indent = "") {
   return out.join("\n")
 }
 
+// Fontsource *variable* packages register the family as "<Family> Variable"
+// (e.g. 'Inter Variable'), so a theme saying 'Inter' would silently fall back
+// unless Inter happens to be installed locally. Prepend the registered name.
+function withFontAliases(vars, fonts) {
+  const variable = new Map(
+    (fonts ?? [])
+      .filter((f) => f.pkg.startsWith("@fontsource-variable/"))
+      .map((f) => [f.family.toLowerCase(), `'${f.family} Variable'`])
+  )
+  if (!variable.size) return vars
+  const out = { ...vars }
+  for (const key of ["font-sans", "font-serif", "font-mono"]) {
+    const fam = firstFamily(out[key])
+    const alias = fam && variable.get(fam.toLowerCase())
+    if (alias && !out[key].includes(alias)) out[key] = `${alias}, ${out[key]}`
+  }
+  return out
+}
+
 function renderThemeCss(entry, item, isDefault) {
   const { light, dark } = selectors(entry.name, isDefault)
   const parts = [HEADER, `/* ${entry.title} — ${entry.source} */`]
   const imports = (entry.fonts ?? []).flatMap((f) => f.imports)
   if (imports.length) parts.push([...new Set(imports)].map((i) => `@import "${i}";`).join("\n"))
-  parts.push(declBlock(light, { ...item.cssVars.theme, ...item.cssVars.light }))
-  parts.push(declBlock(dark, item.cssVars.dark))
+  parts.push(declBlock(light, withFontAliases({ ...item.cssVars.theme, ...item.cssVars.light }, entry.fonts)))
+  parts.push(declBlock(dark, withFontAliases(item.cssVars.dark, entry.fonts)))
   if (item.css && Object.keys(item.css).length) {
     parts.push(serializeCss(item.css, light))
   }

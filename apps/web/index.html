@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cynerdyne Systems · Design Playground</title>
+    <title>Cynerdyne · Eldora Night</title>
     <!-- Apply stored mode/theme before first paint (mirrors themeInitScript()
          in @cysys/ui/providers/theme-provider). -->
     <script>
       ;(function () {
         try {
           var d = document.documentElement
-          var m = localStorage.getItem("cysys-mode") || "system"
+          var m = localStorage.getItem("cysys-mode") || "dark"
           if (m === "system")
             m = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
           d.classList.add(m)

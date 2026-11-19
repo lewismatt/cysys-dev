@@ -13,6 +13,18 @@ packages/
 
 pnpm workspaces + Turborepo · React 19 · Tailwind CSS v4 · shadcn `radix-nova` style.
 
+## Themes at a glance
+
+| Theme | Source | Notes |
+| --- | --- | --- |
+| **Eldora Night** (default) | hand-authored, `registry/eldora-night.json` | Eldora Night palette from the snowmaking dashboard, logo orange `#E65400`, Geist type. Dark = Eldora Night, light = warm daylight companion. Audit: no errors. |
+| Eldo | tweakcn | Audit flags menu-hover and contrast issues (see `pnpm themes:audit`). |
+| Eldo 2 | tweakcn | Same as Eldo. |
+
+The playground's **Overview** page (`#/overview`) is an example dashboard in the style of the
+shadcn/ui examples, built with Eldora snowmaking demo data. **Components** (`#/components`) is the
+kitchen sink: every component, the theme's tokens, typography, and all themes side by side.
+
 ## Getting started
 
 ```bash
