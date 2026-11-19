@@ -14,7 +14,7 @@ import {
 import { Checkbox } from "@cysys/ui/components/checkbox"
 import { Input } from "@cysys/ui/components/input"
 import { Progress } from "@cysys/ui/components/progress"
-import { cn } from "@cysys/ui/lib/utils"
+import { Status, type StatusTone } from "@cysys/ui/components/status"
 import {
   Select,
   SelectContent,
@@ -33,10 +33,10 @@ import {
 
 import { crew, guns, pumps, type Gun } from "./data"
 
-const STATUS: Record<Gun["status"], { label: string; dot: string; text: string }> = {
-  running: { label: "Running", dot: "bg-prime", text: "" },
-  standby: { label: "Standby", dot: "bg-muted-foreground/50", text: "text-muted-foreground" },
-  fault: { label: "Fault", dot: "bg-no-window", text: "text-no-window font-medium" },
+const STATUS: Record<Gun["status"], { label: string; tone: StatusTone }> = {
+  running: { label: "Running", tone: "ok" },
+  standby: { label: "Standby", tone: "neutral" },
+  fault: { label: "Fault", tone: "no-window" },
 }
 
 export function GunsTable() {
@@ -105,10 +105,9 @@ export function GunsTable() {
                 <TableCell>{g.trail}</TableCell>
                 <TableCell className="hidden text-muted-foreground sm:table-cell">{g.type}</TableCell>
                 <TableCell>
-                  <span className={cn("inline-flex items-center gap-2 font-mono text-[13px]", STATUS[g.status].text)}>
-                    <span className={cn("size-1.5 rounded-full", STATUS[g.status].dot)} aria-hidden />
+                  <Status tone={STATUS[g.status].tone} className="gap-2 text-[13px]">
                     {STATUS[g.status].label}
-                  </span>
+                  </Status>
                 </TableCell>
                 <TableCell className="pr-4 text-right font-mono text-[13px]">
                   {g.gpm ? `${g.gpm} gpm` : "—"}

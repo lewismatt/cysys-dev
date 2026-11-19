@@ -1,4 +1,4 @@
-import { cn } from "@cysys/ui/lib/utils"
+import { Status, type StatusTone } from "@cysys/ui/components/status"
 
 import { BAND_LABEL, type Band, type Rating } from "./data"
 
@@ -12,58 +12,33 @@ export const BAND_SWATCH: Record<Band, string> = {
   none: "bg-muted-foreground/25",
 }
 
-function StatusText({
-  dot,
-  text,
-  label,
-  className,
-}: {
-  dot: string
-  text: string
-  label: string
-  className?: string
-}) {
-  return (
-    <span
-      className={cn(
-        "inline-flex items-center gap-1.5 font-mono text-xs whitespace-nowrap",
-        text,
-        className
-      )}
-    >
-      <span className={cn("size-1.5 shrink-0 rounded-full", dot)} aria-hidden />
-      {label}
-    </span>
-  )
-}
-
-const BAND_TEXT: Record<Band, string> = {
-  prime: "text-prime",
-  good: "text-good",
-  marginal: "text-marginal",
-  none: "text-muted-foreground",
+const BAND_TONE: Record<Band, StatusTone> = {
+  prime: "prime",
+  good: "good",
+  marginal: "marginal",
+  none: "neutral",
 }
 
 /** A band word with a small dot in its color. */
 export function BandLabel({ band, className }: { band: Band; className?: string }) {
   return (
-    <StatusText
-      dot={BAND_SWATCH[band]}
-      text={BAND_TEXT[band]}
-      label={BAND_LABEL[band]}
-      className={className}
-    />
+    <Status tone={BAND_TONE[band]} className={className}>
+      {BAND_LABEL[band]}
+    </Status>
   )
 }
 
-const RATING: Record<Rating, { label: string; dot: string; text: string }> = {
-  favorable: { label: "Favorable", dot: "bg-prime", text: "text-prime" },
-  marginal: { label: "Marginal", dot: "bg-marginal", text: "text-marginal" },
-  none: { label: "No window", dot: "bg-muted-foreground/50", text: "text-muted-foreground" },
+const RATING: Record<Rating, { label: string; tone: StatusTone }> = {
+  favorable: { label: "Favorable", tone: "prime" },
+  marginal: { label: "Marginal", tone: "marginal" },
+  none: { label: "No window", tone: "neutral" },
 }
 
 /** Rating for a window or shift: a dot and a word, no container. */
 export function RatingPill({ rating, className }: { rating: Rating; className?: string }) {
-  const r = RATING[rating]
-  return <StatusText dot={r.dot} text={r.text} label={r.label} className={className} />
+  return (
+    <Status tone={RATING[rating].tone} className={className}>
+      {RATING[rating].label}
+    </Status>
+  )
 }

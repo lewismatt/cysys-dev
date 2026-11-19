@@ -17,68 +17,6 @@ export interface CysysTheme {
 
 export const themes = [
   {
-    "name": "eldo-1",
-    "title": "Eldo",
-    "source": "https://tweakcn.com/r/themes/cmwnqcrxn000004i7598zbuc9",
-    "fonts": {
-      "sans": "Inter",
-      "serif": "Georgia",
-      "mono": "JetBrains Mono"
-    },
-    "radius": "0.5rem",
-    "swatches": {
-      "light": {
-        "background": "oklch(0.9880 0.0041 91.4455)",
-        "foreground": "oklch(0.2156 0.0522 56.9357)",
-        "primary": "oklch(0.6634 0.1994 41.8070)",
-        "secondary": "oklch(0.9042 0.0161 73.6705)",
-        "accent": "oklch(0.6634 0.1994 41.8070)",
-        "muted": "oklch(0.9571 0.0108 76.5981)",
-        "border": "oklch(0.9043 0.0087 84.5743)"
-      },
-      "dark": {
-        "background": "oklch(0.1502 0.0112 55.2732)",
-        "foreground": "oklch(0.9676 0.0160 58.6396)",
-        "primary": "oklch(0.6634 0.1994 41.8070)",
-        "secondary": "oklch(0.2430 0.0280 49.0519)",
-        "accent": "oklch(0.6634 0.1994 41.8070)",
-        "muted": "oklch(0.2430 0.0280 49.0519)",
-        "border": "oklch(0.3068 0.0337 54.7785)"
-      }
-    }
-  },
-  {
-    "name": "eldo-2",
-    "title": "Eldo 2",
-    "source": "https://tweakcn.com/r/themes/cmwnqwrwt000104i79cbs8k9p",
-    "fonts": {
-      "sans": "Inter",
-      "serif": "Georgia",
-      "mono": "JetBrains Mono"
-    },
-    "radius": "0.375rem",
-    "swatches": {
-      "light": {
-        "background": "oklch(1.0000 0 0)",
-        "foreground": "oklch(0.2178 0 0)",
-        "primary": "oklch(0.6634 0.1994 41.8070)",
-        "secondary": "oklch(0.9674 0.0013 286.3752)",
-        "accent": "oklch(0.6634 0.1994 41.8070)",
-        "muted": "oklch(0.9674 0.0013 286.3752)",
-        "border": "oklch(0.9197 0.0040 286.3202)"
-      },
-      "dark": {
-        "background": "oklch(0.1408 0.0044 285.8229)",
-        "foreground": "oklch(0.9851 0 0)",
-        "primary": "oklch(0.6634 0.1994 41.8070)",
-        "secondary": "oklch(0.2739 0.0055 286.0326)",
-        "accent": "oklch(0.6634 0.1994 41.8070)",
-        "muted": "oklch(0.2739 0.0055 286.0326)",
-        "border": "oklch(0.2739 0.0055 286.0326)"
-      }
-    }
-  },
-  {
     "name": "eldora-night",
     "title": "Eldora Night",
     "source": "hand-authored: packages/themes/registry/eldora-night.json",

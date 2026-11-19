@@ -2,52 +2,6 @@
   "default": "eldora-night",
   "themes": [
     {
-      "name": "eldo-1",
-      "title": "Eldo",
-      "source": "https://tweakcn.com/r/themes/cmwnqcrxn000004i7598zbuc9",
-      "fonts": [
-        {
-          "family": "Inter",
-          "pkg": "@fontsource-variable/inter",
-          "version": "5.3.0",
-          "imports": [
-            "@fontsource-variable/inter"
-          ]
-        },
-        {
-          "family": "JetBrains Mono",
-          "pkg": "@fontsource-variable/jetbrains-mono",
-          "version": "5.3.0",
-          "imports": [
-            "@fontsource-variable/jetbrains-mono"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "eldo-2",
-      "title": "Eldo 2",
-      "source": "https://tweakcn.com/r/themes/cmwnqwrwt000104i79cbs8k9p",
-      "fonts": [
-        {
-          "family": "Inter",
-          "pkg": "@fontsource-variable/inter",
-          "version": "5.3.0",
-          "imports": [
-            "@fontsource-variable/inter"
-          ]
-        },
-        {
-          "family": "JetBrains Mono",
-          "pkg": "@fontsource-variable/jetbrains-mono",
-          "version": "5.3.0",
-          "imports": [
-            "@fontsource-variable/jetbrains-mono"
-          ]
-        }
-      ]
-    },
-    {
       "name": "eldora-night",
       "title": "Eldora Night",
       "source": "hand-authored: packages/themes/registry/eldora-night.json",
