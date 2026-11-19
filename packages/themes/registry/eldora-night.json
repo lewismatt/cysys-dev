@@ -20,7 +20,8 @@
       "color-no-window": "var(--no-window)",
       "color-on-no-window": "var(--on-no-window)",
       "color-wind": "var(--wind)",
-      "color-stale": "var(--stale)"
+      "color-stale": "var(--stale)",
+      "color-link": "var(--link)"
     },
     "light": {
       "background": "#fcfaf7",
@@ -72,7 +73,8 @@
       "no-window": "#b03a2e",
       "on-no-window": "#ffffff",
       "wind": "#6a4fa8",
-      "stale": "#6b5344"
+      "stale": "#6b5344",
+      "link": "#bd4500"
     },
     "dark": {
       "background": "#0a0603",
@@ -124,7 +126,8 @@
       "no-window": "#db7b6c",
       "on-no-window": "#1a120a",
       "wind": "#c3b2dd",
-      "stale": "#d6c5ae"
+      "stale": "#d6c5ae",
+      "link": "#e65400"
     }
   },
   "css": {

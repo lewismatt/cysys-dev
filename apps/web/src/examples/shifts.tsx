@@ -24,7 +24,7 @@ export function UpcomingShifts() {
         ))}
       </CardContent>
       <CardFooter className="mt-auto">
-        <a href="#/overview" className="text-sm font-medium text-primary underline underline-offset-4">
+        <a href="#/overview" className="text-sm font-medium text-link underline underline-offset-4">
           Every shift in the forecast
         </a>
       </CardFooter>

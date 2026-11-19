@@ -64,6 +64,7 @@
   --on-no-window: #ffffff;
   --wind: #6a4fa8;
   --stale: #6b5344;
+  --link: #bd4500;
 }
 
 :root.dark:not([data-theme]),
@@ -120,6 +121,7 @@
   --on-no-window: #1a120a;
   --wind: #c3b2dd;
   --stale: #d6c5ae;
+  --link: #e65400;
 }
 
 @layer base {

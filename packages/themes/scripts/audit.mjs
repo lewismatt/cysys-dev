@@ -28,7 +28,9 @@ const PAIRS = [
   ["primary-foreground", "primary", 4.5, "default buttons, badges, checked checkbox", "error"],
   ["secondary-foreground", "secondary", 4.5, "secondary buttons, badges", "error"],
   ["accent-foreground", "accent", 4.5, "focused/hovered dropdown & select items", "error"],
-  ["primary", "background", 4.5, "link buttons, text-primary", "warn"],
+  ["link", "background", 4.5, "links, link buttons", "error"],
+  ["link", "card", 4.5, "links on cards", "error"],
+  ["link", "muted/50", 4.5, "links in card footers (bg-muted/50)", "warn"],
   ["destructive", "card", 4.5, "destructive alert text", "error"],
   ["destructive", "destructive/10", 4.5, "destructive buttons & badges (bg-destructive/10)", "error"],
   ["sidebar-foreground", "sidebar", 4.5, "sidebar text", "error"],
@@ -145,6 +147,8 @@ export function auditTheme(item) {
     }
     const background = bgParsed.alpha < 1 ? over(bgParsed, { rgb: [1, 1, 1], alpha: 1 }) : bgParsed
 
+    // Themes without a --link token fall back to --primary, as in globals.css.
+    if (!("link" in vars) && "primary" in vars) vars.link = vars.primary
     for (const [fgRef, bgRef, min, where, level, optional] of PAIRS) {
       if (optional && !(fgRef.split("/")[0] in vars && bgRef.split("/")[0] in vars)) continue
       const bg = resolve(vars, bgRef, background)

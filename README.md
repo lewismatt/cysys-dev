@@ -37,6 +37,7 @@ status colors. They work as Tailwind utilities anywhere in `@cysys/ui`:
 | `--marginal` / `--on-marginal` | `bg-marginal text-on-marginal` | ≤ 28°F |
 | `--no-window` / `--on-no-window` | `bg-no-window text-on-no-window` | Not qualifying |
 | `--wind`, `--stale` | `text-wind`, `text-stale` | Wind flags, stale data |
+| `--link` | `text-link` | Link text. Light mode uses `#bd4500` (≥ 4.5:1 on every light surface); dark uses the logo orange. Other themes fall back to `--primary`. |
 
 As on the dashboard, color repeats a word and never replaces one: always print the label.
 Orange is the brand and never a status. Other themes get neutral fallbacks for these tokens.
