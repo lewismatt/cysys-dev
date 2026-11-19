@@ -1,0 +1,28 @@
+{
+  "name": "cysys-dev",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "turbo format",
+    "typecheck": "turbo typecheck",
+    "themes": "node packages/themes/scripts/themes.mjs",
+    "themes:add": "node packages/themes/scripts/themes.mjs add",
+    "themes:sync": "node packages/themes/scripts/themes.mjs sync",
+    "themes:build": "node packages/themes/scripts/themes.mjs build",
+    "themes:check": "node packages/themes/scripts/themes.mjs check",
+    "ui:add": "pnpm dlx shadcn@latest add -c apps/web"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.10",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "turbo": "^2.11.10",
+    "typescript": "~6.0.2"
+  },
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}

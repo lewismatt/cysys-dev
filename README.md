@@ -1,1 +1,108 @@
 # cysys-dev
+
+Cynerdyne Systems design system: [shadcn/ui](https://ui.shadcn.com) components plus a set of
+brand themes (from [tweakcn](https://tweakcn.com)) that can be switched at runtime.
+
+```
+apps/
+  web/              Vite playground: every component × every theme, light/dark
+packages/
+  ui/               @cysys/ui      shadcn components, globals.css, ThemeProvider
+  themes/           @cysys/themes  tweakcn themes compiled to data-theme scoped CSS
+```
+
+pnpm workspaces + Turborepo · React 19 · Tailwind CSS v4 · shadcn `radix-nova` style.
+
+## Getting started
+
+```bash
+pnpm install
+pnpm dev          # playground at http://localhost:5173 (press "d" to toggle dark mode)
+pnpm build        # typecheck + build everything
+pnpm lint
+pnpm themes:check # fail if generated theme files are out of date (use in CI)
+```
+
+## Themes
+
+Themes live in `packages/themes`:
+
+| Path | What |
+| --- | --- |
+| `themes.json` | Manifest: name, title, source URL, resolved font packages, default theme |
+| `registry/<name>.json` | Vendored shadcn registry item, exactly as tweakcn serves it |
+| `css/<name>.css` | **Generated.** Tokens scoped to `[data-theme="<name>"]` (+ `.dark`) |
+| `css/all.css` | **Generated.** Imports every theme |
+| `src/index.ts` | **Generated.** Typed metadata (`themes`, `ThemeName`, `defaultTheme`, swatches…) |
+
+### Adding a theme
+
+Use the same URL you'd give `shadcn add`:
+
+```bash
+pnpm themes:add https://tweakcn.com/r/themes/<id> --title "Nice Name"
+# several at once (names come from each item's "name"):
+pnpm themes:add https://tweakcn.com/r/themes/<id1> https://tweakcn.com/r/themes/<id2>
+```
+
+This downloads the registry item, resolves any web fonts to
+[Fontsource](https://fontsource.org) packages (system fonts like Georgia are skipped), regenerates
+the CSS and TS metadata, and runs `pnpm install` if new font packages were added. Commit the results.
+
+> Don't run `shadcn add <tweakcn-url>` directly in this repo. It would overwrite the neutral
+> baseline in `globals.css` with a single, unscoped theme.
+
+Other commands:
+
+```bash
+pnpm themes list                 # * marks the default
+pnpm themes:sync [name…]         # re-fetch from tweakcn after editing a theme there
+pnpm themes default <name>       # theme used when no data-theme is set
+pnpm themes remove <name>
+pnpm themes:build                # regenerate after hand-editing registry/*.json
+```
+
+### How theming works
+
+- `@cysys/ui/globals.css` maps tokens to Tailwind utilities with `@theme inline`
+  (`bg-primary`, `font-sans`, `shadow-lg`, `tracking-tight`, `rounded-lg`, …) and defines the neutral
+  shadcn values on `:root` as a baseline.
+- Each theme stylesheet sets the same CSS variables under `[data-theme="<name>"]`. Its selectors
+  out-rank the baseline, so stylesheet order doesn't matter.
+- Dark mode is the standard shadcn `.dark` class.
+- The default theme also matches `:root:not([data-theme])`, so pages work before JS runs.
+- `data-theme` works on **any element**, so you can scope a theme to a subtree:
+
+  ```html
+  <section data-theme="eldo-1">…</section>
+  ```
+
+## Using it in an app
+
+```tsx
+import "@cysys/ui/globals.css"
+import "@cysys/themes/all.css" // or a single theme: "@cysys/themes/eldo-1.css"
+
+import { defaultTheme, themeNames } from "@cysys/themes"
+import { ThemeProvider, useTheme } from "@cysys/ui/providers/theme-provider"
+import { Button } from "@cysys/ui/components/button"
+
+<ThemeProvider themes={themeNames} defaultTheme={defaultTheme}>
+  <App />
+</ThemeProvider>
+
+const { theme, setTheme, mode, setMode, resolvedMode } = useTheme()
+// theme: brand theme (data-theme) · mode: "light" | "dark" | "system"
+```
+
+To avoid a flash of the wrong theme, inline `themeInitScript()` from the provider module in
+`<head>`. `apps/web/index.html` has the equivalent script written out by hand.
+
+## Adding components
+
+```bash
+pnpm ui:add dialog sheet sonner     # = pnpm dlx shadcn@latest add … -c apps/web
+```
+
+Components are written to `packages/ui/src/components` and imported as
+`@cysys/ui/components/<name>`.
