@@ -8,7 +8,7 @@ import {
 } from "@cysys/ui/components/card"
 import { cn } from "@cysys/ui/lib/utils"
 
-import { BAND_FILL, RatingPill } from "./band"
+import { BAND_SWATCH, RatingPill } from "./band"
 import { BAND_LABEL, shifts, type Band, type Shift } from "./data"
 
 export function UpcomingShifts() {
@@ -57,22 +57,22 @@ function ShiftRow({ shift, first }: { shift: Shift; first: boolean }) {
         </div>
         <RatingPill rating={shift.rating} />
       </div>
-      <div className="grid grid-cols-12 gap-0.5" role="img" aria-label={hourSummary(shift)}>
+      <div className="grid grid-cols-12 gap-[3px]" role="img" aria-label={hourSummary(shift)}>
         {Array.from({ length: elapsed }, (_, i) => (
-          <div key={`e${i}`} className="h-3 rounded-[3px] bg-muted" />
+          <div key={`e${i}`} className="h-2 rounded-full bg-muted" />
         ))}
         {shift.hours.map((h, i) => (
           <div
             key={i}
             title={`${BAND_LABEL[h.band]} · ${h.wetBulb.toFixed(1)}°F`}
-            className={cn("h-3 rounded-[3px]", BAND_FILL[h.band])}
+            className={cn("h-2 rounded-full", BAND_SWATCH[h.band])}
           />
         ))}
       </div>
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
         {(Object.keys(counts) as Band[]).map((b) => (
           <span key={b} className="inline-flex items-center gap-1.5">
-            <span className={cn("size-2.5 rounded-[3px]", BAND_FILL[b])} aria-hidden />
+            <span className={cn("size-2 rounded-full", BAND_SWATCH[b])} aria-hidden />
             {BAND_LABEL[b]} <span className="text-foreground">{counts[b]} h</span>
           </span>
         ))}

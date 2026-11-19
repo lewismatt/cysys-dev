@@ -1,6 +1,5 @@
 import { Bar, BarChart, Cell, Line, LineChart, XAxis, YAxis } from "recharts"
 
-import { Badge } from "@cysys/ui/components/badge"
 import {
   Card,
   CardAction,
@@ -86,12 +85,7 @@ export function NextWindowStat() {
         </div>
       </CardContent>
       <div className="mt-auto flex items-center gap-1.5 px-4 text-xs text-muted-foreground">
-        Shifts
-        {nextWindow.shifts.map((s, i) => (
-          <Badge key={i} variant="outline">
-            {s}
-          </Badge>
-        ))}
+        Shifts <span className="text-foreground">{nextWindow.shifts.join(" → ")}</span>
         <RatingPill
           rating={nextWindow.goodOrBetter >= 4 ? "favorable" : "marginal"}
           className="ml-auto"
@@ -112,7 +106,9 @@ export function WaterThisWeek() {
           <span className="ml-1 text-base font-normal text-muted-foreground">gal</span>
         </CardTitle>
         <CardAction>
-          <Badge variant="secondary">+18% vs last week</Badge>
+          <span className="text-xs text-muted-foreground">
+            <span className="text-foreground">+18%</span> vs last week
+          </span>
         </CardAction>
       </CardHeader>
       <CardContent className="pb-0">
@@ -152,9 +148,10 @@ export function GunsRunning() {
         </CardTitle>
         {faults > 0 && (
           <CardAction>
-            <Badge variant="destructive">
+            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-no-window">
+              <span className="size-1.5 rounded-full bg-no-window" aria-hidden />
               {faults} fault{faults === 1 ? "" : "s"}
-            </Badge>
+            </span>
           </CardAction>
         )}
       </CardHeader>
