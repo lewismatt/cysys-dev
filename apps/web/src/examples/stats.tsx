@@ -20,7 +20,7 @@ import { BandLabel, RatingPill } from "./band"
 import { bandOf, guns, last24, nextWindow, now, waterByDay } from "./data"
 
 const wetBulbConfig = {
-  wetBulb: { label: "Wet-bulb °F", color: "var(--chart-1)" },
+  wetBulb: { label: "Wet-bulb °F", color: "var(--muted-foreground)" },
 } satisfies ChartConfig
 
 const waterConfig = {
@@ -156,7 +156,7 @@ export function GunsRunning() {
         )}
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
-        <Progress value={(running / guns.length) * 100} aria-label="Guns running" />
+        <Progress value={(running / guns.length) * 100} className="[&_[data-slot=progress-indicator]]:bg-foreground/55" aria-label="Guns running" />
         <div className="flex justify-between font-mono text-xs text-muted-foreground">
           <span>
             {guns.reduce((s, g) => s + g.gpm, 0)} gpm total

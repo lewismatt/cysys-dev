@@ -187,7 +187,7 @@ export function PumpHouse() {
               <span>{p.name}</span>
               <span className="font-mono text-muted-foreground">{p.load}%</span>
             </div>
-            <Progress value={p.load} aria-label={`${p.name} load`} />
+            <Progress value={p.load} className="[&_[data-slot=progress-indicator]]:bg-foreground/55" aria-label={`${p.name} load`} />
           </div>
         ))}
       </CardContent>

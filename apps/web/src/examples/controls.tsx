@@ -69,7 +69,7 @@ export function ModeCard() {
         </div>
       </CardContent>
       <CardFooter className="mt-auto">
-        <Button className="w-full">Save mode</Button>
+        <Button variant="secondary" className="w-full">Save mode</Button>
       </CardFooter>
     </Card>
   )

@@ -99,13 +99,13 @@ export const themes = [
         "border": "#e9e0d4"
       },
       "dark": {
-        "background": "#0a0603",
-        "foreground": "#f3ead9",
+        "background": "#0a0a09",
+        "foreground": "#ecebe8",
         "primary": "#e65400",
-        "secondary": "#23170b",
-        "accent": "#3a2a1c",
-        "muted": "#23170b",
-        "border": "#3b2a1c"
+        "secondary": "#1b1b19",
+        "accent": "#262624",
+        "muted": "#1b1b19",
+        "border": "#232321"
       }
     }
   }

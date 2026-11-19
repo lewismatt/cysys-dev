@@ -17,7 +17,7 @@ pnpm workspaces + Turborepo · React 19 · Tailwind CSS v4 · shadcn `radix-nova
 
 | Theme | Source | Notes |
 | --- | --- | --- |
-| **Eldora Night** (default) | hand-authored, `registry/eldora-night.json` | The Eldora snowmaking dashboard's Eldora Night palette as a shadcn theme: logo orange `#E65400`, warm near-black surfaces, cream text, Geist type, and the dashboard's status colors as tokens. Dark = Eldora Night, light = warm daylight companion. Audit: no errors. |
+| **Eldora Night** (default) | hand-authored, `registry/eldora-night.json` | The Eldora snowmaking dashboard's Eldora Night palette as a shadcn theme: logo orange `#E65400`, clean near-black surfaces (a hint of warmth), neutral off-white text, Geist + Geist Mono type, and the dashboard's status colors as tokens. Dark = Eldora Night, light = warm daylight companion. Audit: no errors. |
 | Eldo | tweakcn | Audit flags menu-hover and contrast issues (see `pnpm themes:audit`). |
 | Eldo 2 | tweakcn | Same as Eldo. |
 
