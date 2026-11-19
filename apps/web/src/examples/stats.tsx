@@ -1,4 +1,4 @@
-import { Bar, BarChart, Line, LineChart, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, Cell, Line, LineChart, XAxis, YAxis } from "recharts"
 
 import { Badge } from "@cysys/ui/components/badge"
 import {
@@ -6,7 +6,6 @@ import {
   CardAction,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@cysys/ui/components/card"
@@ -26,14 +25,14 @@ const wetBulbConfig = {
 } satisfies ChartConfig
 
 const waterConfig = {
-  gallons: { label: "Million gal", color: "var(--chart-2)" },
+  gallons: { label: "Million gal", color: "var(--muted-foreground)" },
 } satisfies ChartConfig
 
 export function WetBulbNow() {
   return (
     <Card>
       <CardHeader>
-        <CardDescription className="text-[11px] font-medium tracking-wider uppercase">Wet-bulb now</CardDescription>
+        <CardDescription className="text-xs font-medium tracking-wide uppercase">Wet-bulb now</CardDescription>
         <CardTitle className="text-3xl font-semibold tabular-nums">
           {now.wetBulb.toFixed(1)}°F
         </CardTitle>
@@ -56,9 +55,9 @@ export function WetBulbNow() {
           </LineChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="mt-auto text-xs text-muted-foreground">
+      <div className="mt-auto px-4 text-xs text-muted-foreground">
         Last 24 hours · NWS Boulder hourly
-      </CardFooter>
+      </div>
     </Card>
   )
 }
@@ -69,7 +68,7 @@ export function NextWindowStat() {
   return (
     <Card>
       <CardHeader>
-        <CardDescription className="text-[11px] font-medium tracking-wider uppercase">Next window</CardDescription>
+        <CardDescription className="text-xs font-medium tracking-wide uppercase">Next window</CardDescription>
         <CardTitle className="text-3xl font-semibold tabular-nums">
           {startTime}
           <span className="px-1.5 text-muted-foreground">→</span>
@@ -86,7 +85,7 @@ export function NextWindowStat() {
           <span className="text-foreground">{nextWindow.coldest}°F</span>
         </div>
       </CardContent>
-      <CardFooter className="mt-auto gap-1.5 text-xs text-muted-foreground">
+      <div className="mt-auto flex items-center gap-1.5 px-4 text-xs text-muted-foreground">
         Shifts
         {nextWindow.shifts.map((s, i) => (
           <Badge key={i} variant="outline">
@@ -97,7 +96,7 @@ export function NextWindowStat() {
           rating={nextWindow.goodOrBetter >= 4 ? "favorable" : "marginal"}
           className="ml-auto"
         />
-      </CardFooter>
+      </div>
     </Card>
   )
 }
@@ -107,7 +106,7 @@ export function WaterThisWeek() {
   return (
     <Card>
       <CardHeader>
-        <CardDescription className="text-[11px] font-medium tracking-wider uppercase">Water this week</CardDescription>
+        <CardDescription className="text-xs font-medium tracking-wide uppercase">Water this week</CardDescription>
         <CardTitle className="text-3xl font-semibold tabular-nums">
           {total.toFixed(1)}M
           <span className="ml-1 text-base font-normal text-muted-foreground">gal</span>
@@ -121,13 +120,21 @@ export function WaterThisWeek() {
           <BarChart data={waterByDay} margin={{ top: 4, bottom: 0, left: 0, right: 0 }}>
             <XAxis dataKey="day" hide />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-            <Bar dataKey="gallons" fill="var(--color-gallons)" radius={3} />
+            <Bar dataKey="gallons" radius={3}>
+              {waterByDay.map((_, i) => (
+                <Cell
+                  key={i}
+                  fill={i === waterByDay.length - 1 ? "var(--primary)" : "var(--muted-foreground)"}
+                  fillOpacity={i === waterByDay.length - 1 ? 1 : 0.35}
+                />
+              ))}
+            </Bar>
           </BarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="mt-auto text-xs text-muted-foreground">
+      <div className="mt-auto px-4 text-xs text-muted-foreground">
         Mon – Sun · all pump houses
-      </CardFooter>
+      </div>
     </Card>
   )
 }
@@ -138,7 +145,7 @@ export function GunsRunning() {
   return (
     <Card>
       <CardHeader>
-        <CardDescription className="text-[11px] font-medium tracking-wider uppercase">Guns running</CardDescription>
+        <CardDescription className="text-xs font-medium tracking-wide uppercase">Guns running</CardDescription>
         <CardTitle className="text-3xl font-semibold tabular-nums">
           {running}
           <span className="text-muted-foreground"> / {guns.length}</span>
@@ -160,9 +167,9 @@ export function GunsRunning() {
           <span>{Math.round((running / guns.length) * 100)}%</span>
         </div>
       </CardContent>
-      <CardFooter className="mt-auto text-xs text-muted-foreground">
+      <div className="mt-auto px-4 text-xs text-muted-foreground">
         Updated 2 min ago
-      </CardFooter>
+      </div>
     </Card>
   )
 }

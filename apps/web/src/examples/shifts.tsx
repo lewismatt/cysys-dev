@@ -8,7 +8,7 @@ import {
 } from "@cysys/ui/components/card"
 import { cn } from "@cysys/ui/lib/utils"
 
-import { BAND_FILL, BandLabel, RatingPill } from "./band"
+import { BAND_FILL, RatingPill } from "./band"
 import { BAND_LABEL, shifts, type Band, type Shift } from "./data"
 
 export function UpcomingShifts() {
@@ -44,7 +44,7 @@ function ShiftRow({ shift, first }: { shift: Shift; first: boolean }) {
     <div className="flex flex-col gap-2.5 py-3 first:pt-0 last:pb-0">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <div className="text-[11px] font-medium tracking-wider text-muted-foreground uppercase">
+          <div className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
             {shift.startsIn === 0
               ? `In progress · ${shift.hours.length} h left`
               : `Starts in ${shift.startsIn} h`}
@@ -71,8 +71,9 @@ function ShiftRow({ shift, first }: { shift: Shift; first: boolean }) {
       </div>
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
         {(Object.keys(counts) as Band[]).map((b) => (
-          <span key={b} className="inline-flex items-center gap-1">
-            <BandLabel band={b} /> {counts[b]} h
+          <span key={b} className="inline-flex items-center gap-1.5">
+            <span className={cn("size-2.5 rounded-[3px]", BAND_FILL[b])} aria-hidden />
+            {BAND_LABEL[b]} <span className="text-foreground">{counts[b]} h</span>
           </span>
         ))}
       </div>

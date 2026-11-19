@@ -62,12 +62,6 @@ export function ForecastChart() {
       <CardContent className="flex flex-1 flex-col px-2 sm:px-4">
         <ChartContainer config={config} className="aspect-auto min-h-64 w-full flex-1">
           <AreaChart data={data} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
-            <defs>
-              <linearGradient id="fillWetBulb" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="var(--color-wetBulb)" stopOpacity={0.18} />
-                <stop offset="95%" stopColor="var(--color-wetBulb)" stopOpacity={0.02} />
-              </linearGradient>
-            </defs>
             <CartesianGrid vertical={false} />
             {ZONES.map((z) => (
               <ReferenceArea
@@ -75,7 +69,7 @@ export function ForecastChart() {
                 y1={z.y1}
                 y2={z.y2}
                 fill={z.color}
-                fillOpacity={0.07}
+                fillOpacity={0.06}
                 ifOverflow="hidden"
                 label={{
                   value: z.label,
@@ -151,8 +145,9 @@ export function ForecastChart() {
               dataKey="wetBulb"
               type="monotone"
               stroke="var(--color-wetBulb)"
-              strokeWidth={2}
-              fill="url(#fillWetBulb)"
+              strokeWidth={2.25}
+              fill="none"
+              activeDot={{ r: 4, strokeWidth: 0 }}
             />
           </AreaChart>
         </ChartContainer>

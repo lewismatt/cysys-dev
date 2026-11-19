@@ -2,7 +2,6 @@ import * as React from "react"
 import { SearchIcon } from "lucide-react"
 
 import { Avatar, AvatarFallback } from "@cysys/ui/components/avatar"
-import { Badge } from "@cysys/ui/components/badge"
 import {
   Card,
   CardAction,
@@ -15,6 +14,7 @@ import {
 import { Checkbox } from "@cysys/ui/components/checkbox"
 import { Input } from "@cysys/ui/components/input"
 import { Progress } from "@cysys/ui/components/progress"
+import { cn } from "@cysys/ui/lib/utils"
 import {
   Select,
   SelectContent,
@@ -33,10 +33,10 @@ import {
 
 import { crew, guns, pumps, type Gun } from "./data"
 
-const STATUS: Record<Gun["status"], { label: string; variant: "default" | "secondary" | "destructive" }> = {
-  running: { label: "Running", variant: "default" },
-  standby: { label: "Standby", variant: "secondary" },
-  fault: { label: "Fault", variant: "destructive" },
+const STATUS: Record<Gun["status"], { label: string; dot: string; text: string }> = {
+  running: { label: "Running", dot: "bg-prime", text: "" },
+  standby: { label: "Standby", dot: "bg-muted-foreground/50", text: "text-muted-foreground" },
+  fault: { label: "Fault", dot: "bg-no-window", text: "text-no-window font-medium" },
 }
 
 export function GunsTable() {
@@ -105,7 +105,10 @@ export function GunsTable() {
                 <TableCell>{g.trail}</TableCell>
                 <TableCell className="hidden text-muted-foreground sm:table-cell">{g.type}</TableCell>
                 <TableCell>
-                  <Badge variant={STATUS[g.status].variant}>{STATUS[g.status].label}</Badge>
+                  <span className={cn("inline-flex items-center gap-2", STATUS[g.status].text)}>
+                    <span className={cn("size-1.5 rounded-full", STATUS[g.status].dot)} aria-hidden />
+                    {STATUS[g.status].label}
+                  </span>
                 </TableCell>
                 <TableCell className="pr-4 text-right tabular-nums">
                   {g.gpm ? `${g.gpm} gpm` : "—"}
