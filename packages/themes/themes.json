@@ -53,19 +53,22 @@
       "source": "hand-authored: packages/themes/registry/eldora-night.json",
       "fonts": [
         {
-          "family": "Geist",
-          "pkg": "@fontsource-variable/geist",
+          "family": "IBM Plex Sans",
+          "pkg": "@fontsource-variable/ibm-plex-sans",
           "version": "5.3.0",
           "imports": [
-            "@fontsource-variable/geist"
+            "@fontsource-variable/ibm-plex-sans"
           ]
         },
         {
-          "family": "Geist Mono",
-          "pkg": "@fontsource-variable/geist-mono",
+          "family": "IBM Plex Mono",
+          "pkg": "@fontsource/ibm-plex-mono",
           "version": "5.3.0",
           "imports": [
-            "@fontsource-variable/geist-mono"
+            "@fontsource/ibm-plex-mono/400.css",
+            "@fontsource/ibm-plex-mono/500.css",
+            "@fontsource/ibm-plex-mono/600.css",
+            "@fontsource/ibm-plex-mono/700.css"
           ]
         }
       ]

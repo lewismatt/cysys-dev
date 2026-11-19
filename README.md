@@ -17,7 +17,7 @@ pnpm workspaces + Turborepo · React 19 · Tailwind CSS v4 · shadcn `radix-nova
 
 | Theme | Source | Notes |
 | --- | --- | --- |
-| **Eldora Night** (default) | hand-authored, `registry/eldora-night.json` | The Eldora snowmaking dashboard's Eldora Night palette as a shadcn theme: logo orange `#E65400`, clean near-black surfaces (a hint of warmth), neutral off-white text, Geist + Geist Mono type, and the dashboard's status colors as tokens. Dark = Eldora Night, light = warm daylight companion. Audit: no errors. |
+| **Eldora Night** (default) | hand-authored, `registry/eldora-night.json` | The Eldora snowmaking dashboard's Eldora Night palette as a shadcn theme: logo orange `#E65400`, clean near-neutral surfaces (near-black dark mode, off-white light mode), IBM Plex Sans for reading and IBM Plex Mono for headings, labels and figures, and the dashboard's status colors as tokens. Audit: no errors or warnings. |
 | Eldo | tweakcn | Audit flags menu-hover and contrast issues (see `pnpm themes:audit`). |
 | Eldo 2 | tweakcn | Same as Eldo. |
 
@@ -37,7 +37,7 @@ status colors. They work as Tailwind utilities anywhere in `@cysys/ui`:
 | `--marginal` / `--on-marginal` | `bg-marginal text-on-marginal` | ≤ 28°F |
 | `--no-window` / `--on-no-window` | `bg-no-window text-on-no-window` | Not qualifying |
 | `--wind`, `--stale` | `text-wind`, `text-stale` | Wind flags, stale data |
-| `--font-heading` | `font-heading` | Card titles and page headings. Eldora Night points it at Geist Mono; other themes fall back to `--font-sans`. |
+| `--font-heading` | `font-heading` | Card titles and page headings. Eldora Night points it at IBM Plex Mono; other themes fall back to `--font-sans`. |
 | `--link` | `text-link` | Link text. Light mode uses `#bd4500` (≥ 4.5:1 on every light surface); dark uses the logo orange. Other themes fall back to `--primary`. |
 
 As on the dashboard, color repeats a word and never replaces one: always print the label.
@@ -52,9 +52,14 @@ pnpm dlx shadcn@latest add https://<playground-host>/r/eldora-night.json
 pnpm dlx shadcn@latest add /path/to/cysys-dev/apps/web/public/r/eldora-night.json
 ```
 
-The CLI writes the tokens into your CSS file and installs the Geist font packages. It doesn't
-import Geist Mono, so add `@import "@fontsource-variable/geist-mono";` to that CSS file. (Geist Sans
-is already imported by shadcn's default preset.)
+The CLI writes the tokens into your CSS file and installs the IBM Plex font packages, but
+doesn't import them. Add these to that CSS file:
+
+```css
+@import "@fontsource-variable/ibm-plex-sans";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+```
 
 ## Getting started
 

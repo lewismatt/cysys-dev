@@ -83,20 +83,20 @@ export const themes = [
     "title": "Eldora Night",
     "source": "hand-authored: packages/themes/registry/eldora-night.json",
     "fonts": {
-      "sans": "Geist Variable",
+      "sans": "IBM Plex Sans Variable",
       "serif": "ui-serif",
-      "mono": "Geist Mono Variable"
+      "mono": "IBM Plex Mono"
     },
     "radius": "0.625rem",
     "swatches": {
       "light": {
-        "background": "#fcfaf7",
-        "foreground": "#1a120a",
+        "background": "#fafaf9",
+        "foreground": "#111110",
         "primary": "#e65400",
-        "secondary": "#f4eee6",
-        "accent": "#f4eee6",
-        "muted": "#f4eee6",
-        "border": "#e9e0d4"
+        "secondary": "#f2f2f0",
+        "accent": "#efefed",
+        "muted": "#f2f2f0",
+        "border": "#e5e5e2"
       },
       "dark": {
         "background": "#0a0a09",
