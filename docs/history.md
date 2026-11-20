@@ -56,6 +56,23 @@ context so nobody re-litigates them by accident.
 | Light mode to match; sans didn't vibe with the mono | Light mode neutral (`#fafaf9`, `#111110`, `#5c5b56`); fonts switched from Geist/Geist Mono to IBM Plex Sans/Plex Mono (one superfamily) |
 | Remove Eldo themes, document everything | Eldo themes removed; `Status` promoted into `@cysys/ui`; README, AGENTS.md, this `docs/` folder |
 
+## 5. License
+
+- Owner direction (2026-11-19): if every component is open source, license the project as
+  permissively as possible.
+- Verified the full dependency tree in `pnpm-lock.yaml` (562 packages) against the npm
+  registry: every package carries a recognized open-source license — MIT (470), ISC (30),
+  Apache-2.0 (20), BSD-2/3-Clause (18), BlueOak-1.0.0 (5), 0BSD (1), and two MIT-combination
+  entries, plus MPL-2.0 for lightningcss only (build-time CSS tooling), OFL-1.1 for the three
+  Fontsource font packages, and CC-BY-4.0 for caniuse-lite data. No proprietary,
+  restricted-source, or unlicensed packages.
+- Project-owned code is therefore licensed **BSD-0-Clause (0BSD)**: the most permissive
+  OSI-approved license — no attribution, notice-retention, patent, or copyleft conditions.
+  Chosen over CC0-1.0 (not OSI-approved for software and grants no patent rights) and the
+  Unlicense (a public-domain dedication whose effect varies by jurisdiction).
+- Upstream components keep their own licenses and notices; 0BSD covers only code owned by
+  this project. The OFL-1.1 font packages in particular remain OFL-1.1.
+
 ## Open items
 
 - **Registry hosting:** decide where the playground is deployed so other projects can

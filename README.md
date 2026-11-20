@@ -58,3 +58,9 @@ use orange, mono and status colors, is in [docs/eldora-night.md](docs/eldora-nig
 | List / remove themes | `pnpm themes list` · `pnpm themes remove <name>` |
 
 Agents: read [AGENTS.md](AGENTS.md) before changing anything.
+
+## License
+
+Project-owned code is [BSD-0-Clause](LICENSE) (0BSD), the most permissive OSI-approved
+license. Third-party components keep their own open-source licenses; see
+[docs/history.md](docs/history.md) §5 for the verified license inventory.
