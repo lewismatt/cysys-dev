@@ -44,11 +44,11 @@ style is what this was built and tested with).
 ### 1. Install the theme
 
 The registry item is generated at `apps/web/public/r/eldora-night.json` (`pnpm registry:build`).
-It's served at `/r/eldora-night.json` wherever the playground is deployed.
+It's served from the deployed playground at `https://cysys.dev/r/eldora-night.json`.
 
 ```bash
 # from a deployed playground
-pnpm dlx shadcn@latest add https://<playground-host>/r/eldora-night.json
+pnpm dlx shadcn@latest add https://cysys.dev/r/eldora-night.json
 # or from a local checkout of this repo
 pnpm dlx shadcn@latest add /path/to/cysys-dev/apps/web/public/r/eldora-night.json
 ```

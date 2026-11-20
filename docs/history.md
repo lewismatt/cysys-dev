@@ -74,10 +74,24 @@ context so nobody re-litigates them by accident.
 - Upstream components keep their own licenses and notices; MIT covers only code owned by
   this project. The OFL-1.1 font packages in particular remain OFL-1.1.
 
+## 6. Deployment (decided 2026-11-19)
+
+- **Host: Vercel.** The playground is the Vercel project `cysys-dev`, linked to this
+  repo (production branch `main`, root `vercel.json`: pnpm frozen install, `pnpm build`,
+  output `apps/web/dist`). First deployment 2026-11-19 from main `5cb2733f`.
+- **Domain: cysys.dev.** The apex and `www` moved from the GCP server to Vercel with
+  two Namecheap record changes (apex A to Vercel anycast; `www` CNAME to Vercel,
+  redirecting 308 to the apex). All subdomains (vault, versus, traffic, snow) and the
+  Namecheap email-forwarding MX records were deliberately left untouched — the GCP
+  server keeps everything it hosts today.
+- Live URLs: playground https://cysys.dev, registry item
+  https://cysys.dev/r/eldora-night.json (also on the `cysys-dev.vercel.app` alias).
+
 ## Open items
 
-- **Registry hosting:** decide where the playground is deployed so other projects can
-  `shadcn add https://<host>/r/eldora-night.json` instead of a local path.
+- ~~**Registry hosting:** decide where the playground is deployed so other projects can
+  `shadcn add https://<host>/r/eldora-night.json` instead of a local path.~~
+  Resolved 2026-11-19 — see §6: https://cysys.dev/r/eldora-night.json.
 - **Fonts in consumers:** the shadcn CLI installs but doesn't import the Plex packages; consumers
   add three `@import` lines (see `using-eldora-night.md`).
 - **Bundle size:** recharts makes the playground chunk > 500 kB (Vite warning). Fine for a
