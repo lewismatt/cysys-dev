@@ -66,11 +66,12 @@ context so nobody re-litigates them by accident.
   entries, plus MPL-2.0 for lightningcss only (build-time CSS tooling), OFL-1.1 for the three
   Fontsource font packages, and CC-BY-4.0 for caniuse-lite data. No proprietary,
   restricted-source, or unlicensed packages.
-- Project-owned code is therefore licensed **BSD-0-Clause (0BSD)**: the most permissive
-  OSI-approved license — no attribution, notice-retention, patent, or copyleft conditions.
-  Chosen over CC0-1.0 (not OSI-approved for software and grants no patent rights) and the
-  Unlicense (a public-domain dedication whose effect varies by jurisdiction).
-- Upstream components keep their own licenses and notices; 0BSD covers only code owned by
+- Project-owned code is therefore licensed under the **MIT License** — owner's final call
+  (2026-11-19), superseding a BSD-0-Clause (0BSD) draft from earlier the same day: MIT is
+  permissive (use, copy, modify, merge, publish, distribute, sublicense, sell) with a single
+  condition — keep the copyright and permission notices in copies — and it is the license
+  readers, tooling, and other projects recognize on sight.
+- Upstream components keep their own licenses and notices; MIT covers only code owned by
   this project. The OFL-1.1 font packages in particular remain OFL-1.1.
 
 ## Open items

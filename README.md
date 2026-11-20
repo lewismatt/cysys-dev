@@ -61,6 +61,6 @@ Agents: read [AGENTS.md](AGENTS.md) before changing anything.
 
 ## License
 
-Project-owned code is [BSD-0-Clause](LICENSE) (0BSD), the most permissive OSI-approved
-license. Third-party components keep their own open-source licenses; see
+Project-owned code is [MIT licensed](LICENSE). Third-party components keep their own
+open-source licenses; see
 [docs/history.md](docs/history.md) §5 for the verified license inventory.
