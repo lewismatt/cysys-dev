@@ -26,8 +26,8 @@ picker is not a theme: it's an unknown `data-theme` value that lets the neutral 
 
 ## 2. Setup and commands
 
-Node ≥ 20.19 (CI uses 22), pnpm 11 (`packageManager` pins it; corepack or pnpm 10 will switch
-automatically). Older distro-packaged corepack can't start pnpm 11
+Node ≥ 20.19 (CI and Vercel use 26), pnpm 11 (`packageManager` pins it; corepack or pnpm 10
+will switch automatically). Older distro-packaged corepack can't start pnpm 11
 (`ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`); install pnpm with `npm i -g pnpm@11` instead.
 
 ```bash
