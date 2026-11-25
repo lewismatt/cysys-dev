@@ -87,6 +87,20 @@ context so nobody re-litigates them by accident.
 - Live URLs: playground https://cysys.dev, registry item
   https://cysys.dev/r/eldora-night.json (also on the `cysys-dev.vercel.app` alias).
 
+## 7. Repo hygiene (2026-11-25)
+
+- **Archive:** the original cysys.dev plan, its decision log (D-001…D-005) and the Terminal /
+  Quiet theme study predate this monorepo and live in [`history/`](history/) as background. Where
+  they conflict with this file (npm and Next.js, Terminal or Quiet), this file wins.
+- **CI:** GitHub Actions runs formatting, `themes:check`, `themes:audit --strict`, a registry
+  drift check, lint, typecheck and build on every PR. Vercel still builds previews and production.
+- **Formatting:** one repo-wide `pnpm format` (Prettier) replaces the per-package scripts.
+  Generated files, vendored skills, the archive and Markdown are excluded (`.prettierignore`).
+- **Dependencies:** removed `zod` and `@turbo/gen` from `@cysys/ui` (scaffold leftovers, unused).
+  `@fontsource-variable/geist` stays: it is the neutral baseline's font (`shadcn-neutral`).
+- **`.gitignore`:** explicit secret patterns (`.env*` except `.env.example`, `*.pem`, `*.key`)
+  and `.vercel/`.
+
 ## Open items
 
 - ~~**Registry hosting:** decide where the playground is deployed so other projects can
