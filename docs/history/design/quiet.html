@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cynerdyne Systems: Quiet direction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Geist:wght@400;500&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f3ee;
+    --surface: #fbfaf7;
+    --border: #e1ddd4;
+    --fg: #1b1a18;
+    --muted: #6d6a63;
+    --red: #b3261e;
+    --serif: "Newsreader", Georgia, serif;
+    --sans: "Geist", system-ui, sans-serif;
+    --mono: "Geist Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--bg); color: var(--fg); font: 400 16px/1.65 var(--sans); -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 40px; }
+  a { color: inherit; }
+
+  header .wrap { display: flex; justify-content: space-between; align-items: center; padding-block: 28px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 500; letter-spacing: -.01em; }
+  nav { display: flex; gap: 28px; font-size: 15px; color: var(--muted); }
+  nav a { text-decoration: none; }
+
+  .hero { padding: 112px 0 104px; max-width: 760px; }
+  .label { font: 400 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  h1 { font: 400 clamp(40px, 6.2vw, 68px)/1.06 var(--serif); letter-spacing: -.02em; margin: 24px 0 28px; }
+  h1 em { font-style: italic; color: var(--muted); }
+  .lede { font-size: 19px; color: var(--muted); max-width: 54ch; }
+
+  .list-head { display: flex; justify-content: space-between; border-bottom: 1px solid var(--fg); padding-bottom: 12px; }
+  .row {
+    display: grid; grid-template-columns: 56px 1fr 1.4fr 210px; gap: 24px; align-items: baseline;
+    padding: 28px 0; border-bottom: 1px solid var(--border); text-decoration: none;
+  }
+  .row .n { font: 400 13px/1 var(--mono); color: var(--muted); }
+  .row h3 { font: 500 26px/1.2 var(--serif); letter-spacing: -.01em; }
+  .row p { color: var(--muted); font-size: 15px; }
+  .row .addr { font: 400 14px/1 var(--mono); white-space: nowrap; text-align: right; }
+  .row .addr::after { content: " ↗"; color: var(--red); }
+  .tag { display: inline-block; margin-left: 10px; font: 400 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 4px 7px; border-radius: 99px; vertical-align: 4px; }
+
+  .about { display: grid; grid-template-columns: 1fr 1.5fr; gap: 64px; padding: 120px 0; }
+  .about h2 { font: 400 34px/1.15 var(--serif); letter-spacing: -.01em; }
+  .about p { color: var(--muted); font-size: 17px; }
+  .about p + p { margin-top: 16px; }
+  code { font: 400 14px/1 var(--mono); background: var(--surface); border: 1px solid var(--border); padding: 3px 6px; border-radius: 4px; color: var(--fg); }
+
+  footer { border-top: 1px solid var(--border); }
+  footer .wrap { display: flex; justify-content: space-between; gap: 24px; padding-block: 28px; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
+
+  @media (max-width: 760px) {
+    .wrap { padding: 0 22px; }
+    nav a:not(:first-child) { display: none; }
+    .hero { padding: 56px 0 64px; }
+    .lede { font-size: 17px; }
+    .row { grid-template-columns: 1fr; gap: 6px; padding: 24px 0; }
+    .row .addr { margin-top: 10px; text-align: left; }
+    .about { grid-template-columns: 1fr; gap: 20px; padding: 72px 0; }
+    .about h2 { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="#">
+        <svg width="26" height="26" viewBox="0 0 34 34" aria-hidden="true">
+          <path d="M28 9.5A13 13 0 1 0 28 24.5" fill="none" stroke="#1b1a18" stroke-width="2.6"/>
+          <circle cx="17" cy="17" r="3" fill="#b3261e"/>
+        </svg>
+        Cynerdyne Systems
+      </a>
+      <nav><a href="#">Projects</a><a href="#">Kit</a><a href="#">About</a></nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="label">Cynerdyne Systems Corp.</div>
+      <h1>Small, careful software for weather, machines and the people who run them. <em>Nothing self-aware.</em></h1>
+      <p class="lede">A one-person studio. Projects start here and move to their own homes once they can stand on their own.</p>
+    </section>
+
+    <section>
+      <div class="list-head"><span class="label">Projects</span><span class="label">3</span></div>
+      <a class="row" href="#">
+        <span class="n">01</span>
+        <h3>Eldora Snowmaking</h3>
+        <p>When wet-bulb temperatures allow snowmaking, and how those windows line up with the day and night shifts.</p>
+        <span class="addr">makesnow.info</span>
+      </a>
+      <a class="row" href="#">
+        <span class="n">02</span>
+        <h3>Schematics <span class="tag">Crew login</span></h3>
+        <p>Component catalogue for snowmaking equipment: 3D views, parts and service steps.</p>
+        <span class="addr">schematics.cysys.dev</span>
+      </a>
+      <a class="row" href="#">
+        <span class="n">03</span>
+        <h3>House kit</h3>
+        <p>The tokens, components, rules and agent skills every project here is built from.</p>
+        <span class="addr">cysys.dev/kit</span>
+      </a>
+    </section>
+
+    <section class="about">
+      <h2>One maker, one chassis.</h2>
+      <div>
+        <p>Every project shares one set of design tokens, shadcn/ui components and agent procedures, so each new thing starts finished-looking and stays consistent.</p>
+        <p>Pull it into any project with <code>npx shadcn add @cysys/tokens</code>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Cynerdyne Systems Corp.</span>
+      <span>Not affiliated with any company building time machines. Yet.</span>
+    </div>
+  </footer>
+</body>
+</html>

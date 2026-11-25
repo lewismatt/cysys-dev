@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cynerdyne Systems: Terminal direction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --surface: #111113;
+    --border: #25252a;
+    --grid: rgb(255 255 255 / 0.035);
+    --fg: #e8e6e3;
+    --muted: #8b8882;
+    --red: #e3342f;
+    --red-dim: rgb(227 52 47 / 0.14);
+    --ok: #3ddc84;
+    --amber: #f2b13a;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+    --cond: "IBM Plex Sans Condensed", system-ui, sans-serif;
+    --sans: "IBM Plex Sans", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background:
+      linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 48px 48px,
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 48px 48px,
+      var(--bg);
+    color: var(--fg);
+    font: 400 16px/1.6 var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 32px; }
+  .mono { font-family: var(--mono); }
+
+  .statusbar {
+    border-bottom: 1px solid var(--border);
+    font: 500 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
+  }
+  .statusbar .wrap { display: flex; gap: 28px; padding-block: 10px; overflow: hidden; white-space: nowrap; }
+  .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 8px; vertical-align: 1px; }
+  .dot.ok { background: var(--ok); box-shadow: 0 0 8px var(--ok); }
+  .dot.red { background: var(--red); box-shadow: 0 0 8px var(--red); }
+  .dot.amber { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+
+  header .wrap { display: flex; align-items: center; justify-content: space-between; padding-block: 22px; }
+  .brand { display: flex; align-items: center; gap: 14px; color: var(--fg); text-decoration: none; }
+  .brand b { font: 700 18px/1 var(--cond); letter-spacing: .18em; text-transform: uppercase; }
+  .brand small { display: block; font: 500 10px/1 var(--mono); letter-spacing: .22em; color: var(--muted); margin-top: 5px; }
+  nav { display: flex; gap: 28px; font: 500 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+  nav a { color: var(--muted); text-decoration: none; }
+  nav a:first-child { color: var(--fg); }
+
+  .hero { padding: 88px 0 96px; display: grid; grid-template-columns: 1.35fr 1fr; gap: 48px; align-items: center; }
+  .eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--red); }
+  h1 {
+    font: 700 clamp(44px, 7vw, 84px)/.95 var(--cond); letter-spacing: .01em; text-transform: uppercase;
+    margin: 22px 0 26px;
+  }
+  h1 span { color: var(--muted); }
+  .lede { color: var(--muted); max-width: 52ch; font-size: 18px; }
+  .lede b { color: var(--fg); font-weight: 500; }
+  .actions { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
+  .btn {
+    font: 500 13px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
+    padding: 15px 20px; border: 1px solid var(--border); color: var(--fg); background: var(--surface);
+  }
+  .btn.primary { background: var(--red); border-color: var(--red); color: #0a0a0b; }
+
+  .reticle { justify-self: center; width: 100%; max-width: 380px; }
+  .reticle svg { width: 100%; height: auto; display: block; }
+
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 14px; margin-bottom: 0; }
+  .section-head h2 { font: 600 13px/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; }
+  .section-head span { font: 400 12px/1 var(--mono); color: var(--muted); letter-spacing: .1em; }
+
+  .units { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border-left: 1px solid var(--border); }
+  .unit {
+    position: relative; padding: 28px 28px 30px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    background: rgb(17 17 19 / .7);
+  }
+  .unit::before, .unit::after { content: ""; position: absolute; width: 12px; height: 12px; border-color: var(--red); border-style: solid; }
+  .unit::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+  .unit::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+  .unit-top { display: flex; justify-content: space-between; font: 500 11px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  .unit h3 { font: 600 28px/1.1 var(--cond); text-transform: uppercase; letter-spacing: .02em; margin: 18px 0 10px; }
+  .unit p { color: var(--muted); font-size: 15px; max-width: 46ch; }
+  .unit .addr { display: inline-block; margin-top: 20px; font: 500 13px/1 var(--mono); color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--red); padding-bottom: 4px; }
+  .unit.redacted h3 { color: transparent; background: repeating-linear-gradient(90deg, #2a2a2f 0 100%); width: 60%; height: 28px; }
+  .unit.redacted p .bar { background: #2a2a2f; color: transparent; }
+
+  .kit { margin: 96px 0; display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: start; }
+  .kit h2 { font: 700 40px/1 var(--cond); text-transform: uppercase; margin: 16px 0 16px; }
+  .term {
+    background: #050506; border: 1px solid var(--border); font: 400 13px/1.9 var(--mono); padding: 20px 22px; color: var(--muted);
+  }
+  .term .p { color: var(--red); }
+  .term .c { color: var(--fg); }
+  .term .ok { color: var(--ok); }
+
+  footer { border-top: 1px solid var(--border); }
+  footer .wrap { display: flex; justify-content: space-between; gap: 24px; padding-block: 26px; font: 400 11px/1.6 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); flex-wrap: wrap; }
+
+  @media (max-width: 760px) {
+    .wrap { padding: 0 20px; }
+    .statusbar .hide-sm, nav a:not(:first-child) { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 48px 0 56px; gap: 32px; }
+    .reticle { order: -1; max-width: 200px; justify-self: start; }
+    .lede { font-size: 16px; }
+    .units { grid-template-columns: 1fr; }
+    .kit { grid-template-columns: 1fr; margin: 64px 0; gap: 24px; }
+    .kit h2 { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+  <div class="statusbar">
+    <div class="wrap">
+      <span><i class="dot ok"></i>Sys status: nominal</span>
+      <span class="hide-sm">Node: cysys.dev</span>
+      <span>Units online: 02</span>
+      <span class="hide-sm">Self-awareness: 0.00%</span>
+    </div>
+  </div>
+
+  <header>
+    <div class="wrap">
+      <a class="brand" href="#">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+          <path d="M28 9.5A13 13 0 1 0 28 24.5" fill="none" stroke="#e8e6e3" stroke-width="3"/>
+          <path d="M22.5 12.5A7 7 0 1 0 22.5 21.5" fill="none" stroke="#e8e6e3" stroke-width="2" opacity=".5"/>
+          <circle cx="17" cy="17" r="2.6" fill="#e3342f"/>
+        </svg>
+        <span><b>Cynerdyne</b><small>Systems Corp.</small></span>
+      </a>
+      <nav><a href="#">Units</a><a href="#">Kit</a><a href="#">About</a></nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">// Cynerdyne Systems Corp.</div>
+        <h1>Systems that work.<br><span>Not self-aware.</span></h1>
+        <p class="lede">A one-person systems company. <b>Software for the real world</b>: weather, machines and the crews who run them. Each unit ships on its own domain once it can stand on its own.</p>
+        <div class="actions">
+          <a class="btn primary" href="#">View units</a>
+          <a class="btn" href="#">The kit →</a>
+        </div>
+      </div>
+      <div class="reticle">
+        <svg viewBox="0 0 300 300" aria-hidden="true">
+          <g fill="none" stroke="#e3342f">
+            <circle cx="150" cy="150" r="138" stroke-opacity=".25"/>
+            <circle cx="150" cy="150" r="104" stroke-dasharray="2 6" stroke-opacity=".6"/>
+            <circle cx="150" cy="150" r="64" stroke-opacity=".9" stroke-width="1.5"/>
+            <path d="M150 0v58M150 242v58M0 150h58M242 150h58" stroke-opacity=".7"/>
+            <path d="M58 58l22 22M242 58l-22 22M58 242l22-22M242 242l-22-22" stroke-opacity=".35"/>
+          </g>
+          <circle cx="150" cy="150" r="18" fill="#e3342f" fill-opacity=".15"/>
+          <circle cx="150" cy="150" r="6" fill="#e3342f"/>
+          <g font-family="IBM Plex Mono, monospace" font-size="9" fill="#8b8882" letter-spacing="1.5">
+            <text x="196" y="40">TRK 0x2F</text>
+            <text x="18" y="276">LAT 40.0°N</text>
+            <text x="212" y="276">ALT 2,800M</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Active units</h2><span>03 listed</span></div>
+      <div class="units">
+        <article class="unit">
+          <div class="unit-top"><span>Unit CS-01</span><span><i class="dot ok"></i>Online</span></div>
+          <h3>Eldora Snowmaking</h3>
+          <p>When wet-bulb temperatures allow snowmaking, and how those windows line up with the day and night shifts.</p>
+          <a class="addr" href="#">makesnow.info →</a>
+        </article>
+        <article class="unit">
+          <div class="unit-top"><span>Unit CS-02</span><span><i class="dot amber"></i>Restricted</span></div>
+          <h3>Schematics</h3>
+          <p>Component catalogue for snowmaking equipment: 3D views, parts and service steps. Crew login required.</p>
+          <a class="addr" href="#">schematics.cysys.dev →</a>
+        </article>
+        <article class="unit">
+          <div class="unit-top"><span>Unit CS-00</span><span><i class="dot ok"></i>Online</span></div>
+          <h3>House kit</h3>
+          <p>Tokens, components, rules and agent skills that every Cynerdyne unit is built from.</p>
+          <a class="addr" href="#">cysys.dev/kit →</a>
+        </article>
+        <article class="unit redacted">
+          <div class="unit-top"><span>Unit CS-03</span><span><i class="dot red"></i>Classified</span></div>
+          <h3>&nbsp;</h3>
+          <p><span class="bar">Next unit in development, details withheld</span></p>
+          <span class="addr" style="color:var(--muted)">ETA: unknown</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="kit">
+      <div>
+        <div class="eyebrow">// Standard issue</div>
+        <h2>Every unit, same chassis</h2>
+        <p class="lede">One registry of tokens, shadcn/ui components and agent skills. Pull it into any project in one command.</p>
+      </div>
+      <div class="term">
+        <div><span class="p">$</span> <span class="c">npx shadcn add @cysys/tokens @cysys/project-card</span></div>
+        <div><span class="ok">✔</span> Installed 2 items from cysys.dev</div>
+        <div><span class="p">$</span> <span class="c">npx skills add lewismatt/cysys-dev</span></div>
+        <div><span class="ok">✔</span> cysys-new-project · cysys-ui · cysys-release</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Cynerdyne Systems Corp.</span>
+      <span>No affiliation with any time-travel defense contractor.</span>
+    </div>
+  </footer>
+</body>
+</html>
