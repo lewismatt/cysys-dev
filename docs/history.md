@@ -112,3 +112,6 @@ context so nobody re-litigates them by accident.
   playground; code-split if this becomes a product app.
 - **Info-level audit items:** 50%-opacity focus ring and input borders are below 3:1, same as
   shadcn's defaults; focused controls also get a solid ring-colored border.
+- **Security override (2026-11-25):** `pnpm-workspace.yaml` forces `minimatch ^11.0.1` under
+  `@ts-morph/common` for GHSA-g3hv-75wg-m249 (shadcn 4.23 → ts-morph 26 → minimatch 10). Remove
+  it once shadcn depends on ts-morph ≥ 28, then confirm `pnpm why -r minimatch` shows no 10.x.
