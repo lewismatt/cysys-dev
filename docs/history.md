@@ -56,10 +56,42 @@ context so nobody re-litigates them by accident.
 | Light mode to match; sans didn't vibe with the mono | Light mode neutral (`#fafaf9`, `#111110`, `#5c5b56`); fonts switched from Geist/Geist Mono to IBM Plex Sans/Plex Mono (one superfamily) |
 | Remove Eldo themes, document everything | Eldo themes removed; `Status` promoted into `@cysys/ui`; README, AGENTS.md, this `docs/` folder |
 
+## 5. License
+
+- Owner direction (2026-11-19): if every component is open source, license the project as
+  permissively as possible.
+- Verified the full dependency tree in `pnpm-lock.yaml` (562 packages) against the npm
+  registry: every package carries a recognized open-source license — MIT (470), ISC (30),
+  Apache-2.0 (20), BSD-2/3-Clause (18), BlueOak-1.0.0 (5), 0BSD (1), and two MIT-combination
+  entries, plus MPL-2.0 for lightningcss only (build-time CSS tooling), OFL-1.1 for the three
+  Fontsource font packages, and CC-BY-4.0 for caniuse-lite data. No proprietary,
+  restricted-source, or unlicensed packages.
+- Project-owned code is therefore licensed under the **MIT License** — owner's final call
+  (2026-11-19), superseding a BSD-0-Clause (0BSD) draft from earlier the same day: MIT is
+  permissive (use, copy, modify, merge, publish, distribute, sublicense, sell) with a single
+  condition — keep the copyright and permission notices in copies — and it is the license
+  readers, tooling, and other projects recognize on sight.
+- Upstream components keep their own licenses and notices; MIT covers only code owned by
+  this project. The OFL-1.1 font packages in particular remain OFL-1.1.
+
+## 6. Deployment (decided 2026-11-19)
+
+- **Host: Vercel.** The playground is the Vercel project `cysys-dev`, linked to this
+  repo (production branch `main`, root `vercel.json`: pnpm frozen install, `pnpm build`,
+  output `apps/web/dist`). First deployment 2026-11-19 from main `5cb2733f`.
+- **Domain: cysys.dev.** The apex and `www` moved from the GCP server to Vercel with
+  two Namecheap record changes (apex A to Vercel anycast; `www` CNAME to Vercel,
+  redirecting 308 to the apex). All subdomains (vault, versus, traffic, snow) and the
+  Namecheap email-forwarding MX records were deliberately left untouched — the GCP
+  server keeps everything it hosts today.
+- Live URLs: playground https://cysys.dev, registry item
+  https://cysys.dev/r/eldora-night.json (also on the `cysys-dev.vercel.app` alias).
+
 ## Open items
 
-- **Registry hosting:** decide where the playground is deployed so other projects can
-  `shadcn add https://<host>/r/eldora-night.json` instead of a local path.
+- ~~**Registry hosting:** decide where the playground is deployed so other projects can
+  `shadcn add https://<host>/r/eldora-night.json` instead of a local path.~~
+  Resolved 2026-11-19 — see §6: https://cysys.dev/r/eldora-night.json.
 - **Fonts in consumers:** the shadcn CLI installs but doesn't import the Plex packages; consumers
   add three `@import` lines (see `using-eldora-night.md`).
 - **Bundle size:** recharts makes the playground chunk > 500 kB (Vite warning). Fine for a

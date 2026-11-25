@@ -1,0 +1,11 @@
+# Decisions
+
+Newest last. An entry is changed only by a later entry that supersedes it.
+
+| ID | Date | Decision |
+| --- | --- | --- |
+| D-001 | 2026-11-19 | **One repository for the cysys.dev site and the house kit; products keep their own repositories.** The kit (tokens, shadcn/ui components and blocks, design rules, `AGENTS.md` base, agent skills) is distributed from this repository as a shadcn GitHub registry and a skills package. Products copy items in and pin them; there is no published npm package. Rationale and rejected options: [PLAN.md](PLAN.md#decision-one-repository-for-site-and-kit-products-keep-their-own). |
+| D-002 | 2026-11-19 | **This repository is public and holds no secrets.** It is the organization's landing page and the kit's public source. Environment values live only in Vercel project settings and are never committed; `.env*` (except `.env.example` with placeholder values), `.vercel/`, keys and certificates are git-ignored. GitHub secret scanning, push protection, Dependabot alerts and Dependabot security updates are on. CI runs a secret scan over the full history (P1). Docs name hosts by role ("the owner's VM"), not by address or hostname. |
+| D-003 | 2026-11-19 | **Scope of the cysys organization.** cysys covers the owner's projects: the Eldora snowmaking dashboard (makesnow.info), Schematics (schematics.cysys.dev), this site, and future projects the owner adds. PuckHer and ShiftWise are outside cysys: they are not listed on the site and the kit does not target them. |
+| D-004 | 2026-11-19 | **npm and Node 26, no workspace tooling.** npm matches the dashboard repository's convention and needs nothing extra installed, locally or on Vercel. A single Next.js app at the root needs no workspaces; if a second package appears, npm workspaces (as in the dashboard repository) come first, before pnpm or Turborepo. `engines.node` is `26.x` (Vercel selects by major; Node 26 is LTS and GA on Vercel since 2026-10-29) and `.nvmrc` pins the exact local version. The `package-lock.json` is committed. |
+| D-005 | 2026-11-19 | **Site stack.** Next.js (App Router), Tailwind CSS v4, shadcn/ui, deployed on Vercel. The landing page is statically rendered. Fonts are self-hosted through `next/font`. |

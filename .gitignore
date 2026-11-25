@@ -12,8 +12,15 @@ dist
 dist-ssr
 *.local
 
-# env files (can opt-in for committing if needed)
-.env*
+# Secrets: this repository is public. Environment values live in Vercel, never here.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Vercel CLI link and pulled env files
+.vercel
 
 # turbo
 .turbo
