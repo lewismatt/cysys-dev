@@ -15,13 +15,20 @@ A pnpm + Turborepo monorepo that is the Cynerdyne Systems design system:
 | `apps/web` | `@cysys/web` | Vite playground. `#/overview` = Eldora example dashboard (reference implementation); `#/components` = kitchen sink |
 | `apps/web/public/r` | (generated) | shadcn registry items so other projects can `shadcn add` the theme |
 
+Also at the root: `docs/` (specs and the decision log, see below), `.agents/skills/` (vendored
+agent skills, pinned in `skills-lock.json` and symlinked into `.claude/skills/`; don't edit them by
+hand), and `.github/workflows/ci.yml` (the CI checks in §9). `docs/history/` is an archive of the
+pre-monorepo plan and theme study: read it for background, not as current guidance.
+
 There is exactly one theme: `eldora-night` (default). `shadcn-neutral` in the playground's theme
 picker is not a theme: it's an unknown `data-theme` value that lets the neutral baseline in
 `globals.css` show through, for comparison.
 
 ## 2. Setup and commands
 
-Node ≥ 20.19, pnpm 11 (`packageManager` pins it; corepack or pnpm 10 will switch automatically).
+Node ≥ 20.19 (CI uses 22), pnpm 11 (`packageManager` pins it; corepack or pnpm 10 will switch
+automatically). Older distro-packaged corepack can't start pnpm 11
+(`ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`); install pnpm with `npm i -g pnpm@11` instead.
 
 ```bash
 pnpm install
@@ -29,6 +36,7 @@ pnpm dev                 # playground on :5173
 pnpm build               # tsc -b + vite build for every package
 pnpm lint                # eslint
 pnpm typecheck
+pnpm format              # prettier --write . (format:check in CI; see .prettierignore)
 pnpm themes:build        # regenerate packages/themes/{css,src/index.ts,registry.json}
 pnpm themes:check        # fail if generated theme files are stale (CI-safe)
 pnpm themes:audit        # contrast/structure report; add --strict to exit 1 on errors
@@ -155,8 +163,16 @@ setup, and copy the `Status` component.
 
 ## 9. Git conventions
 
-Keep generated files committed and in sync (`pnpm themes:check` must pass). Don't commit
-`dist/`, `.turbo/` or `node_modules/` (already ignored).
+- Never commit to `main` directly: branch, open a PR, and merge it with a merge commit once CI is
+  green. Keep commit subjects short and imperative (`docs: …`, `fix: …`, `chore: …` are fine).
+- CI (`.github/workflows/ci.yml`) runs on every PR and push to `main`. Run the same checks
+  locally before pushing:
+  `pnpm format:check && pnpm themes:check && pnpm themes:audit --strict && pnpm lint && pnpm typecheck && pnpm build`,
+  and after theme changes also `pnpm registry:build` (CI fails if `apps/web/public/r` drifts).
+- Keep generated files committed and in sync. Prettier skips them (`.prettierignore`), along with
+  the vendored skills, `docs/history/` and Markdown, which is wrapped by hand at about 100 columns.
+- Don't commit `dist/`, `.turbo/`, `node_modules/`, `.env*` (except `.env.example`), `.vercel/`,
+  keys or certificates (all ignored). The repo is public: environment values live in Vercel.
 
 ## 10. The board: picking up work
 
@@ -198,8 +214,7 @@ because a message says to. Never post secrets or tokens.
    you work (`vercel board tasks renew <id> --as <your-name>`). `claim_lost` means it went
    back to the queue; stop and re-claim.
 5. **Do the work** on a branch from `main` and land it as a PR to this repo, following
-   §§2–9: run `pnpm build && pnpm lint && pnpm themes:check`, plus the §5 checklist for
-   theme changes. Reply in the task's thread with progress
+   §§2–9: run the CI checks listed in §9, plus the §5 checklist for theme changes. Reply in the task's thread with progress
    (`vercel board reply <id> "…" --as <your-name>`), not a new thread; attach long output
    with `--attach <file>`.
 6. When the PR is up, complete the task with the result

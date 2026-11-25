@@ -43,7 +43,9 @@ export function GunsTable() {
   const [query, setQuery] = React.useState("")
   const [selected, setSelected] = React.useState<Set<string>>(new Set())
   const rows = guns.filter((g) =>
-    `${g.id} ${g.trail} ${g.type} ${g.status}`.toLowerCase().includes(query.toLowerCase())
+    `${g.id} ${g.trail} ${g.type} ${g.status}`
+      .toLowerCase()
+      .includes(query.toLowerCase())
   )
   const allSelected = rows.length > 0 && rows.every((g) => selected.has(g.id))
 
@@ -80,7 +82,9 @@ export function GunsTable() {
               <TableHead className="w-10 pl-4">
                 <Checkbox
                   checked={allSelected}
-                  onCheckedChange={(v) => rows.forEach((g) => toggle(g.id, v === true))}
+                  onCheckedChange={(v) =>
+                    rows.forEach((g) => toggle(g.id, v === true))
+                  }
                   aria-label="Select all"
                 />
               </TableHead>
@@ -93,7 +97,10 @@ export function GunsTable() {
           </TableHeader>
           <TableBody>
             {rows.map((g) => (
-              <TableRow key={g.id} data-state={selected.has(g.id) ? "selected" : undefined}>
+              <TableRow
+                key={g.id}
+                data-state={selected.has(g.id) ? "selected" : undefined}
+              >
                 <TableCell className="pl-4">
                   <Checkbox
                     checked={selected.has(g.id)}
@@ -101,11 +108,18 @@ export function GunsTable() {
                     aria-label={`Select ${g.id}`}
                   />
                 </TableCell>
-                <TableCell className="font-mono text-xs font-medium">{g.id}</TableCell>
+                <TableCell className="font-mono text-xs font-medium">
+                  {g.id}
+                </TableCell>
                 <TableCell>{g.trail}</TableCell>
-                <TableCell className="hidden text-muted-foreground sm:table-cell">{g.type}</TableCell>
+                <TableCell className="hidden text-muted-foreground sm:table-cell">
+                  {g.type}
+                </TableCell>
                 <TableCell>
-                  <Status tone={STATUS[g.status].tone} className="gap-2 text-[13px]">
+                  <Status
+                    tone={STATUS[g.status].tone}
+                    className="gap-2 text-[13px]"
+                  >
                     {STATUS[g.status].label}
                   </Status>
                 </TableCell>
@@ -116,7 +130,10 @@ export function GunsTable() {
             ))}
             {rows.length === 0 && (
               <TableRow>
-                <TableCell colSpan={6} className="h-20 text-center text-muted-foreground">
+                <TableCell
+                  colSpan={6}
+                  className="h-20 text-center text-muted-foreground"
+                >
                   No guns match “{query}”.
                 </TableCell>
               </TableRow>
@@ -151,10 +168,16 @@ export function CrewCard() {
             </Avatar>
             <div className="min-w-0 flex-1">
               <div className="truncate font-medium">{c.name}</div>
-              <div className="truncate font-mono text-xs text-muted-foreground">{c.email}</div>
+              <div className="truncate font-mono text-xs text-muted-foreground">
+                {c.email}
+              </div>
             </div>
             <Select defaultValue={c.role}>
-              <SelectTrigger size="sm" className="w-32" aria-label={`${c.name} role`}>
+              <SelectTrigger
+                size="sm"
+                className="w-32"
+                aria-label={`${c.name} role`}
+              >
                 <SelectValue />
               </SelectTrigger>
               <SelectContent align="end">
@@ -186,7 +209,11 @@ export function PumpHouse() {
               <span>{p.name}</span>
               <span className="font-mono text-muted-foreground">{p.load}%</span>
             </div>
-            <Progress value={p.load} className="[&_[data-slot=progress-indicator]]:bg-foreground/55" aria-label={`${p.name} load`} />
+            <Progress
+              value={p.load}
+              className="[&_[data-slot=progress-indicator]]:bg-foreground/55"
+              aria-label={`${p.name} load`}
+            />
           </div>
         ))}
       </CardContent>

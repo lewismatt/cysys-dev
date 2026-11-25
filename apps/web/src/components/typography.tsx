@@ -1,9 +1,21 @@
 import { Card, CardContent } from "@cysys/ui/components/card"
 
 const SAMPLES = [
-  { cls: "font-sans", label: "font-sans", text: "Systems that think in signals." },
-  { cls: "font-serif", label: "font-serif", text: "Systems that think in signals." },
-  { cls: "font-mono", label: "font-mono", text: "const signal = await probe(host)" },
+  {
+    cls: "font-sans",
+    label: "font-sans",
+    text: "Systems that think in signals.",
+  },
+  {
+    cls: "font-serif",
+    label: "font-serif",
+    text: "Systems that think in signals.",
+  },
+  {
+    cls: "font-mono",
+    label: "font-mono",
+    text: "const signal = await probe(host)",
+  },
 ]
 
 export function Typography() {
@@ -15,8 +27,9 @@ export function Typography() {
             Cynerdyne Systems
           </h1>
           <p className="max-w-prose text-muted-foreground">
-            Headings use <code className="font-mono text-sm">tracking-tight</code>;
-            body copy inherits the theme's{" "}
+            Headings use{" "}
+            <code className="font-mono text-sm">tracking-tight</code>; body copy
+            inherits the theme's{" "}
             <code className="font-mono text-sm">--tracking-normal</code>.
           </p>
         </div>

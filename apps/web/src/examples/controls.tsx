@@ -24,7 +24,6 @@ import { Separator } from "@cysys/ui/components/separator"
 import { Switch } from "@cysys/ui/components/switch"
 import { Textarea } from "@cysys/ui/components/textarea"
 
-
 const MODES = [
   { value: "fan", label: "Fan guns", icon: FanIcon },
   { value: "tower", label: "Towers", icon: RadioTowerIcon },
@@ -36,7 +35,9 @@ export function ModeCard() {
     <Card>
       <CardHeader>
         <CardTitle>Snowmaking mode</CardTitle>
-        <CardDescription>Which equipment runs when a window opens.</CardDescription>
+        <CardDescription>
+          Which equipment runs when a window opens.
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-6">
         <RadioGroup defaultValue="both" className="grid grid-cols-3 gap-3">
@@ -46,7 +47,11 @@ export function ModeCard() {
               htmlFor={`mode-${value}`}
               className="flex cursor-pointer flex-col items-center gap-2 rounded-lg border p-3 text-center transition-colors hover:bg-accent has-focus-visible:ring-3 has-focus-visible:ring-ring/50 has-data-checked:border-primary has-data-checked:bg-primary/5"
             >
-              <RadioGroupItem id={`mode-${value}`} value={value} className="sr-only" />
+              <RadioGroupItem
+                id={`mode-${value}`}
+                value={value}
+                className="sr-only"
+              />
               <Icon className="size-5" />
               {label}
             </Label>
@@ -55,7 +60,12 @@ export function ModeCard() {
         <div className="grid gap-2">
           <Label htmlFor="target">Target depth on Ho Hum</Label>
           <div className="flex gap-2">
-            <Input id="target" defaultValue="24" inputMode="numeric" className="tabular-nums" />
+            <Input
+              id="target"
+              defaultValue="24"
+              inputMode="numeric"
+              className="tabular-nums"
+            />
             <Select defaultValue="in">
               <SelectTrigger className="w-24" aria-label="Unit">
                 <SelectValue />
@@ -69,16 +79,33 @@ export function ModeCard() {
         </div>
       </CardContent>
       <CardFooter className="mt-auto">
-        <Button variant="secondary" className="w-full">Save mode</Button>
+        <Button variant="secondary" className="w-full">
+          Save mode
+        </Button>
       </CardFooter>
     </Card>
   )
 }
 
 const ALERTS = [
-  { id: "window", title: "Window opening", desc: "An hour before wet-bulb drops to 28°F.", on: true },
-  { id: "fault", title: "Gun faults", desc: "Any gun reports a fault or loses pressure.", on: true },
-  { id: "wind", title: "High wind", desc: "Gusts over 25 mph at the summit sensor.", on: false },
+  {
+    id: "window",
+    title: "Window opening",
+    desc: "An hour before wet-bulb drops to 28°F.",
+    on: true,
+  },
+  {
+    id: "fault",
+    title: "Gun faults",
+    desc: "Any gun reports a fault or loses pressure.",
+    on: true,
+  },
+  {
+    id: "wind",
+    title: "High wind",
+    desc: "Gusts over 25 mph at the summit sensor.",
+    on: false,
+  },
 ]
 
 export function AlertsCard() {
@@ -93,9 +120,14 @@ export function AlertsCard() {
           <React.Fragment key={a.id}>
             {i > 0 && <Separator />}
             <div className="flex items-start justify-between gap-4">
-              <Label htmlFor={`alert-${a.id}`} className="flex flex-col items-start gap-1">
+              <Label
+                htmlFor={`alert-${a.id}`}
+                className="flex flex-col items-start gap-1"
+              >
                 <span>{a.title}</span>
-                <span className="font-normal text-muted-foreground">{a.desc}</span>
+                <span className="font-normal text-muted-foreground">
+                  {a.desc}
+                </span>
               </Label>
               <Switch id={`alert-${a.id}`} defaultChecked={a.on} />
             </div>
@@ -145,11 +177,17 @@ export function IssueCard() {
         </div>
         <div className="grid gap-2">
           <Label htmlFor="issue-subject">Subject</Label>
-          <Input id="issue-subject" placeholder="F-21 tripped on low pressure" />
+          <Input
+            id="issue-subject"
+            placeholder="F-21 tripped on low pressure"
+          />
         </div>
         <div className="grid gap-2">
           <Label htmlFor="issue-body">Details</Label>
-          <Textarea id="issue-body" placeholder="What happened, and what you tried…" />
+          <Textarea
+            id="issue-body"
+            placeholder="What happened, and what you tried…"
+          />
         </div>
       </CardContent>
       <CardFooter className="mt-auto justify-between">

@@ -39,18 +39,57 @@ const HEADER =
 // need no webfont package.
 const SYSTEM_FONTS = new Set(
   [
-    "serif", "sans-serif", "monospace", "cursive", "fantasy", "system-ui",
-    "ui-serif", "ui-sans-serif", "ui-monospace", "ui-rounded", "math",
-    "emoji", "-apple-system", "blinkmacsystemfont", "segoe ui", "roboto",
-    "helvetica", "helvetica neue", "arial", "georgia", "times",
-    "times new roman", "cambria", "garamond", "palatino", "verdana",
-    "tahoma", "trebuchet ms", "courier", "courier new", "menlo", "monaco",
-    "consolas", "sf mono", "sfmono-regular", "liberation mono",
-    "apple color emoji", "segoe ui emoji", "noto color emoji",
+    "serif",
+    "sans-serif",
+    "monospace",
+    "cursive",
+    "fantasy",
+    "system-ui",
+    "ui-serif",
+    "ui-sans-serif",
+    "ui-monospace",
+    "ui-rounded",
+    "math",
+    "emoji",
+    "-apple-system",
+    "blinkmacsystemfont",
+    "segoe ui",
+    "roboto",
+    "helvetica",
+    "helvetica neue",
+    "arial",
+    "georgia",
+    "times",
+    "times new roman",
+    "cambria",
+    "garamond",
+    "palatino",
+    "verdana",
+    "tahoma",
+    "trebuchet ms",
+    "courier",
+    "courier new",
+    "menlo",
+    "monaco",
+    "consolas",
+    "sf mono",
+    "sfmono-regular",
+    "liberation mono",
+    "apple color emoji",
+    "segoe ui emoji",
+    "noto color emoji",
   ].map((f) => f.toLowerCase())
 )
 
-const SWATCH_KEYS = ["background", "foreground", "primary", "secondary", "accent", "muted", "border"]
+const SWATCH_KEYS = [
+  "background",
+  "foreground",
+  "primary",
+  "secondary",
+  "accent",
+  "muted",
+  "border",
+]
 
 // ---------------------------------------------------------------------------
 // helpers
@@ -81,21 +120,27 @@ async function fetchItem(source) {
   let text
   if (/^https?:\/\//.test(source)) {
     const res = await fetch(source, { headers: { accept: "application/json" } })
-    if (!res.ok) throw new Error(`GET ${source} -> ${res.status} ${res.statusText}`)
+    if (!res.ok)
+      throw new Error(`GET ${source} -> ${res.status} ${res.statusText}`)
     text = await res.text()
   } else {
     text = await readFile(resolve(process.cwd(), source), "utf8")
   }
   const item = JSON.parse(text)
   if (!item?.cssVars?.light || !item?.cssVars?.dark) {
-    throw new Error(`${source} is not a shadcn theme (missing cssVars.light/dark)`)
+    throw new Error(
+      `${source} is not a shadcn theme (missing cssVars.light/dark)`
+    )
   }
   return item
 }
 
 function firstFamily(value) {
   if (!value) return null
-  const first = String(value).split(",")[0].trim().replace(/^['"]|['"]$/g, "")
+  const first = String(value)
+    .split(",")[0]
+    .trim()
+    .replace(/^['"]|['"]$/g, "")
   return first || null
 }
 
@@ -111,7 +156,10 @@ function themeFonts(item) {
 
 function npmExists(pkg) {
   try {
-    return execFileSync("npm", ["view", pkg, "version"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim()
+    return execFileSync("npm", ["view", pkg, "version"], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim()
   } catch {
     return null
   }
@@ -130,9 +178,16 @@ function resolveFontPackage(rawFamily) {
   const stat = `@fontsource/${slug}`
   version = npmExists(stat)
   if (version) {
-    return { family, pkg: stat, version, imports: [400, 500, 600, 700].map((w) => `${stat}/${w}.css`) }
+    return {
+      family,
+      pkg: stat,
+      version,
+      imports: [400, 500, 600, 700].map((w) => `${stat}/${w}.css`),
+    }
   }
-  console.warn(`  ! no Fontsource package found for "${family}" — load it yourself`)
+  console.warn(
+    `  ! no Fontsource package found for "${family}" — load it yourself`
+  )
   return null
 }
 
@@ -184,7 +239,9 @@ function serializeCss(obj, scopeSel, indent = "") {
         )
         .join(", ")
     }
-    out.push(`${indent}${sel} {\n${serializeCss(val, scopeSel, indent + "  ")}\n${indent}}`)
+    out.push(
+      `${indent}${sel} {\n${serializeCss(val, scopeSel, indent + "  ")}\n${indent}}`
+    )
   }
   return out.join("\n")
 }
@@ -213,15 +270,28 @@ function withFontAliases(vars, fonts) {
 // they don't belong in the scoped blocks. In this repo those mappings live in
 // @cysys/ui/globals.css.
 function themeValues(item) {
-  return Object.fromEntries(Object.entries(item.cssVars.theme ?? {}).filter(([k]) => !k.startsWith("color-")))
+  return Object.fromEntries(
+    Object.entries(item.cssVars.theme ?? {}).filter(
+      ([k]) => !k.startsWith("color-")
+    )
+  )
 }
 
 function renderThemeCss(entry, item, isDefault) {
   const { light, dark } = selectors(entry.name, isDefault)
   const parts = [HEADER, `/* ${entry.title} — ${entry.source} */`]
   const imports = (entry.fonts ?? []).flatMap((f) => f.imports)
-  if (imports.length) parts.push([...new Set(imports)].map((i) => `@import "${i}";`).join("\n"))
-  parts.push(declBlock(light, withFontAliases({ ...themeValues(item), ...item.cssVars.light }, entry.fonts)))
+  if (imports.length)
+    parts.push([...new Set(imports)].map((i) => `@import "${i}";`).join("\n"))
+  parts.push(
+    declBlock(
+      light,
+      withFontAliases(
+        { ...themeValues(item), ...item.cssVars.light },
+        entry.fonts
+      )
+    )
+  )
   parts.push(declBlock(dark, withFontAliases(item.cssVars.dark, entry.fonts)))
   if (item.css && Object.keys(item.css).length) {
     parts.push(serializeCss(item.css, light))
@@ -253,7 +323,12 @@ function renderIndexTs(manifest, items) {
   const data = manifest.themes.map((t) => {
     const item = items[t.name]
     const pick = (mode) =>
-      Object.fromEntries(SWATCH_KEYS.filter((k) => item.cssVars[mode][k]).map((k) => [k, item.cssVars[mode][k]]))
+      Object.fromEntries(
+        SWATCH_KEYS.filter((k) => item.cssVars[mode][k]).map((k) => [
+          k,
+          item.cssVars[mode][k],
+        ])
+      )
     return {
       name: t.name,
       title: t.title,
@@ -301,10 +376,14 @@ export function getTheme(name: ThemeName): CysysTheme {
 
 async function generate(manifest) {
   const items = {}
-  for (const t of manifest.themes) items[t.name] = await readJson(join(REGISTRY_DIR, `${t.name}.json`))
+  for (const t of manifest.themes)
+    items[t.name] = await readJson(join(REGISTRY_DIR, `${t.name}.json`))
   const files = new Map()
   for (const t of manifest.themes) {
-    files.set(join(CSS_DIR, `${t.name}.css`), renderThemeCss(t, items[t.name], t.name === manifest.default))
+    files.set(
+      join(CSS_DIR, `${t.name}.css`),
+      renderThemeCss(t, items[t.name], t.name === manifest.default)
+    )
   }
   files.set(join(CSS_DIR, "all.css"), renderAllCss(manifest))
   files.set(REGISTRY_INDEX, renderRegistryIndex(manifest, items))
@@ -318,10 +397,13 @@ async function build(manifest) {
   await mkdir(CSS_DIR, { recursive: true })
   // Drop CSS for themes that no longer exist.
   for (const f of await readdir(CSS_DIR)) {
-    if (f.endsWith(".css") && !files.has(join(CSS_DIR, f))) await rm(join(CSS_DIR, f))
+    if (f.endsWith(".css") && !files.has(join(CSS_DIR, f)))
+      await rm(join(CSS_DIR, f))
   }
   for (const [p, content] of files) await writeFile(p, content)
-  console.log(`Built ${manifest.themes.length} theme(s): ${manifest.themes.map((t) => t.name).join(", ")}`)
+  console.log(
+    `Built ${manifest.themes.length} theme(s): ${manifest.themes.map((t) => t.name).join(", ")}`
+  )
 }
 
 async function check() {
@@ -333,7 +415,9 @@ async function check() {
     if (current !== content) stale.push(p.replace(ROOT + "/", ""))
   }
   if (stale.length) {
-    console.error(`Generated theme files are stale: ${stale.join(", ")}\nRun \`pnpm themes:build\`.`)
+    console.error(
+      `Generated theme files are stale: ${stale.join(", ")}\nRun \`pnpm themes:build\`.`
+    )
     process.exit(1)
   }
   console.log("Theme files are up to date.")
@@ -343,7 +427,8 @@ async function syncFontDeps(manifest) {
   const pkg = await readJson(PKG_JSON)
   const deps = { ...(pkg.dependencies ?? {}) }
   const wanted = new Map()
-  for (const t of manifest.themes) for (const f of t.fonts ?? []) wanted.set(f.pkg, f.version)
+  for (const t of manifest.themes)
+    for (const f of t.fonts ?? []) wanted.set(f.pkg, f.version)
   let changed = false
   for (const [name, version] of wanted) {
     if (!deps[name]) {
@@ -358,7 +443,9 @@ async function syncFontDeps(manifest) {
     }
   }
   if (changed) {
-    pkg.dependencies = Object.fromEntries(Object.entries(deps).sort(([a], [b]) => a.localeCompare(b)))
+    pkg.dependencies = Object.fromEntries(
+      Object.entries(deps).sort(([a], [b]) => a.localeCompare(b))
+    )
     await writeJson(PKG_JSON, pkg)
   }
   return changed
@@ -370,7 +457,9 @@ async function importTheme(manifest, source, opts = {}) {
   if (!name) throw new Error("Theme has no name; pass --name")
   const existing = manifest.themes.find((t) => t.name === name)
   const title = opts.title ?? existing?.title ?? titleize(name)
-  const finalSource = /^https?:\/\//.test(source) ? source : existing?.source ?? source
+  const finalSource = /^https?:\/\//.test(source)
+    ? source
+    : (existing?.source ?? source)
 
   console.log(`• ${name}: resolving fonts…`)
   const fonts = Object.values(themeFonts(item))
@@ -405,7 +494,11 @@ function parseArgs(argv) {
     if (a.startsWith("--")) {
       const key = a.slice(2)
       const next = argv[i + 1]
-      if (next !== undefined && !next.startsWith("--") && ["name", "title"].includes(key)) {
+      if (
+        next !== undefined &&
+        !next.startsWith("--") &&
+        ["name", "title"].includes(key)
+      ) {
         flags[key] = next
         i++
       } else flags[key] = true
@@ -421,8 +514,12 @@ async function main() {
 
   switch (cmd) {
     case "add": {
-      if (!positional.length) throw new Error("usage: add <url|file> [--name x] [--title X] [--default]")
-      if (positional.length > 1 && (flags.name || flags.title)) throw new Error("--name/--title only work with a single source")
+      if (!positional.length)
+        throw new Error(
+          "usage: add <url|file> [--name x] [--title X] [--default]"
+        )
+      if (positional.length > 1 && (flags.name || flags.title))
+        throw new Error("--name/--title only work with a single source")
       for (const src of positional) {
         const e = await importTheme(manifest, src, flags)
         console.log(`  added ${e.name} (${e.title})`)
@@ -434,7 +531,9 @@ async function main() {
       break
     }
     case "sync": {
-      const targets = positional.length ? positional : manifest.themes.map((t) => t.name)
+      const targets = positional.length
+        ? positional
+        : manifest.themes.map((t) => t.name)
       for (const name of targets) {
         const t = manifest.themes.find((x) => x.name === name)
         if (!t) throw new Error(`Unknown theme ${name}`)
@@ -454,7 +553,8 @@ async function main() {
       for (const name of positional) {
         manifest.themes = manifest.themes.filter((t) => t.name !== name)
         await rm(join(REGISTRY_DIR, `${name}.json`), { force: true })
-        if (manifest.default === name) manifest.default = manifest.themes[0]?.name ?? null
+        if (manifest.default === name)
+          manifest.default = manifest.themes[0]?.name ?? null
       }
       await writeJson(MANIFEST, manifest)
       await syncFontDeps(manifest)
@@ -463,7 +563,8 @@ async function main() {
     }
     case "default": {
       const [name] = positional
-      if (!manifest.themes.some((t) => t.name === name)) throw new Error(`Unknown theme ${name}`)
+      if (!manifest.themes.some((t) => t.name === name))
+        throw new Error(`Unknown theme ${name}`)
       manifest.default = name
       await writeJson(MANIFEST, manifest)
       await build(manifest)
@@ -473,7 +574,9 @@ async function main() {
       await build(manifest)
       break
     case "audit": {
-      const targets = positional.length ? positional : manifest.themes.map((t) => t.name)
+      const targets = positional.length
+        ? positional
+        : manifest.themes.map((t) => t.name)
       let errors = 0
       for (const name of targets) {
         const file = join(REGISTRY_DIR, `${name}.json`)
@@ -490,7 +593,9 @@ async function main() {
       break
     case "list":
       for (const t of manifest.themes) {
-        console.log(`${t.name === manifest.default ? "*" : " "} ${t.name.padEnd(24)} ${t.title.padEnd(24)} ${t.source}`)
+        console.log(
+          `${t.name === manifest.default ? "*" : " "} ${t.name.padEnd(24)} ${t.title.padEnd(24)} ${t.source}`
+        )
       }
       break
     default:

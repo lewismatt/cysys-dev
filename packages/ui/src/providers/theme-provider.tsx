@@ -109,9 +109,8 @@ export function ThemeProvider({
     const stored = readStorage(modeStorageKey)
     return isMode(stored) ? stored : defaultMode
   })
-  const [systemMode, setSystemMode] = React.useState<ResolvedMode>(
-    getSystemMode
-  )
+  const [systemMode, setSystemMode] =
+    React.useState<ResolvedMode>(getSystemMode)
   const [theme, setThemeState] = React.useState<string | null>(() => {
     const stored = readStorage(storageKey)
     return stored !== null && themes.includes(stored) ? stored : defaultTheme

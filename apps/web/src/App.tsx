@@ -21,7 +21,8 @@ type PageId = (typeof PAGES)[number]["id"]
 
 function usePage(): PageId {
   const read = () =>
-    (PAGES.find((p) => `#/${p.id}` === window.location.hash)?.id ?? "overview") as PageId
+    (PAGES.find((p) => `#/${p.id}` === window.location.hash)?.id ??
+      "overview") as PageId
   const [page, setPage] = React.useState<PageId>(read)
   React.useEffect(() => {
     const onHash = () => {
@@ -41,11 +42,16 @@ export function App() {
     <div className="min-h-svh">
       <header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-2.5 sm:h-14 sm:flex-nowrap sm:gap-6 sm:px-6 sm:py-0">
-          <a href="#/overview" className="flex items-center gap-2 font-semibold">
+          <a
+            href="#/overview"
+            className="flex items-center gap-2 font-semibold"
+          >
             <span className="flex size-7 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <MountainSnowIcon className="size-4" />
             </span>
-            <span className="font-mono font-medium tracking-tight lowercase">cynerdyne</span>
+            <span className="font-mono font-medium tracking-tight lowercase">
+              cynerdyne
+            </span>
           </a>
           <nav className="order-last flex w-full items-center gap-4 font-mono text-[13px] sm:order-none sm:w-auto">
             {PAGES.map((p) => (
@@ -55,7 +61,9 @@ export function App() {
                 aria-current={page === p.id ? "page" : undefined}
                 className={cn(
                   "transition-colors hover:text-foreground",
-                  page === p.id ? "font-medium text-foreground" : "text-muted-foreground"
+                  page === p.id
+                    ? "font-medium text-foreground"
+                    : "text-muted-foreground"
                 )}
               >
                 {p.label}
@@ -75,7 +83,8 @@ export function App() {
 
       <footer className="border-t py-6 text-center text-xs text-muted-foreground">
         <span className="font-mono">{themeCount} themes</span> · press{" "}
-        <kbd className="rounded border px-1 font-mono">d</kbd> to toggle dark mode
+        <kbd className="rounded border px-1 font-mono">d</kbd> to toggle dark
+        mode
       </footer>
     </div>
   )
@@ -90,7 +99,10 @@ function ComponentsPage() {
       >
         <Showcase />
       </Section>
-      <Section title="Tokens" description="Semantic color tokens defined by the active theme.">
+      <Section
+        title="Tokens"
+        description="Semantic color tokens defined by the active theme."
+      >
         <TokenGrid />
       </Section>
       <Section title="Typography">
@@ -101,8 +113,8 @@ function ComponentsPage() {
         description={
           <>
             Each preview is scoped with its own{" "}
-            <code className="font-mono text-xs">data-theme</code> attribute, so themes can
-            coexist on one page.
+            <code className="font-mono text-xs">data-theme</code> attribute, so
+            themes can coexist on one page.
           </>
         }
       >
@@ -124,8 +136,12 @@ function Section({
   return (
     <section className="flex flex-col gap-4">
       <div>
-        <h2 className="font-heading text-lg font-medium tracking-tight">{title}</h2>
-        {description && <p className="text-sm text-muted-foreground">{description}</p>}
+        <h2 className="font-heading text-lg font-medium tracking-tight">
+          {title}
+        </h2>
+        {description && (
+          <p className="text-sm text-muted-foreground">{description}</p>
+        )}
       </div>
       {children}
     </section>

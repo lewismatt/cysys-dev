@@ -15,6 +15,9 @@ docs/
   eldora-night.md        Design spec: palette, typography, color rules, patterns
   using-eldora-night.md  How to use the theme here or in another project
   history.md             What was built and why (decision log)
+  history/               Archive: the pre-monorepo plan and theme study (background only)
+.agents/skills/     Vendored agent skills (pinned in skills-lock.json)
+.github/workflows/  CI: format, theme sync + audit, registry sync, lint, typecheck, build
 AGENTS.md           Instructions for coding agents working in this repo
 ```
 
@@ -28,6 +31,7 @@ pnpm install
 pnpm dev            # playground at http://localhost:5173 (#/overview, #/components; "d" toggles dark)
 pnpm build          # typecheck + build
 pnpm lint
+pnpm format         # prettier (CI runs format:check)
 pnpm themes:check   # generated theme files are up to date
 pnpm themes:audit   # WCAG contrast + structure checks for the theme
 ```

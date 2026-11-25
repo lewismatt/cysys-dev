@@ -4,3 +4,20 @@ node_modules/
 coverage/
 pnpm-lock.yaml
 .pnpm-store/
+
+# Generated: owned by `pnpm themes:build` / `pnpm themes:add` and `pnpm registry:build`.
+# Formatting them would make `pnpm themes:check` fail.
+packages/themes/css/
+packages/themes/src/index.ts
+packages/themes/registry.json
+packages/themes/registry/
+packages/themes/themes.json
+apps/web/public/r/
+
+# Vendored (managed by `npx skills`, pinned in skills-lock.json) and archived docs
+.agents/
+skills-lock.json
+docs/history/
+
+# Markdown is wrapped and laid out by hand
+*.md

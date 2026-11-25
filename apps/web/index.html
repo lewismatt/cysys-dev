@@ -12,7 +12,9 @@
           var d = document.documentElement
           var m = localStorage.getItem("cysys-mode") || "dark"
           if (m === "system")
-            m = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+            m = matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light"
           d.classList.add(m)
           d.style.colorScheme = m
           var t = localStorage.getItem("cysys-theme")

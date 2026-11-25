@@ -60,8 +60,14 @@ export function ForecastChart() {
         </CardAction>
       </CardHeader>
       <CardContent className="flex flex-1 flex-col px-2 sm:px-4">
-        <ChartContainer config={config} className="aspect-auto min-h-64 w-full flex-1 font-mono">
-          <AreaChart data={data} margin={{ top: 8, right: 64, left: -12, bottom: 0 }}>
+        <ChartContainer
+          config={config}
+          className="aspect-auto min-h-64 w-full flex-1 font-mono"
+        >
+          <AreaChart
+            data={data}
+            margin={{ top: 8, right: 64, left: -12, bottom: 0 }}
+          >
             <CartesianGrid vertical={false} />
             {ZONES.map((z) => (
               <ReferenceArea
@@ -129,7 +135,9 @@ export function ForecastChart() {
                   indicator="line"
                   formatter={(value, _name, item) => (
                     <div className="flex w-full flex-col gap-0.5">
-                      <span className="text-muted-foreground">{item.payload.label}</span>
+                      <span className="text-muted-foreground">
+                        {item.payload.label}
+                      </span>
                       <div className="flex justify-between gap-4">
                         <span>{BAND_LABEL[bandOf(Number(value))]}</span>
                         <span className="font-mono font-medium tabular-nums">

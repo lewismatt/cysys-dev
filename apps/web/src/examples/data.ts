@@ -39,7 +39,10 @@ export const now = forecast[0]
 // Last 24h of wet-bulb for the sparkline.
 export const last24 = Array.from({ length: 24 }, (_, i) => ({
   i,
-  wetBulb: Math.round((26 + Math.cos(((i - 3) / 24) * 2 * Math.PI) * 5 + Math.sin(i) * 0.6) * 10) / 10,
+  wetBulb:
+    Math.round(
+      (26 + Math.cos(((i - 3) / 24) * 2 * Math.PI) * 5 + Math.sin(i) * 0.6) * 10
+    ) / 10,
 }))
 
 export const waterByDay = [
@@ -76,11 +79,16 @@ const shiftOf = (hour: number) => (hour >= 7 && hour < 19 ? "Day" : "Night")
 
 export const nextWindow = {
   start: forecast[first.from].label,
-  end: first.to === forecast.length - 1 ? "beyond forecast" : forecast[first.to + 1].label,
+  end:
+    first.to === forecast.length - 1
+      ? "beyond forecast"
+      : forecast[first.to + 1].label,
   hours: hoursIn.length,
   goodOrBetter: hoursIn.filter((h) => h.wetBulb <= 24).length,
   coldest: Math.min(...hoursIn.map((h) => h.wetBulb)),
-  shifts: hoursIn.map((h) => shiftOf(h.hour)).filter((s, i, a) => s !== a[i - 1]),
+  shifts: hoursIn
+    .map((h) => shiftOf(h.hour))
+    .filter((s, i, a) => s !== a[i - 1]),
   wind: "W 8–14 mph",
 }
 
@@ -98,16 +106,48 @@ export const guns: Gun[] = [
   { id: "T-03", trail: "Corona", type: "Tower", status: "running", gpm: 41 },
   { id: "T-07", trail: "Corona", type: "Tower", status: "standby", gpm: 0 },
   { id: "F-21", trail: "Jolly Jug", type: "Fan", status: "fault", gpm: 0 },
-  { id: "T-11", trail: "Indian Peaks", type: "Tower", status: "running", gpm: 38 },
+  {
+    id: "T-11",
+    trail: "Indian Peaks",
+    type: "Tower",
+    status: "running",
+    gpm: 38,
+  },
   { id: "F-30", trail: "Muleshoe", type: "Fan", status: "standby", gpm: 0 },
-  { id: "T-15", trail: "Indian Peaks", type: "Tower", status: "running", gpm: 36 },
+  {
+    id: "T-15",
+    trail: "Indian Peaks",
+    type: "Tower",
+    status: "running",
+    gpm: 36,
+  },
 ]
 
 export const crew = [
-  { name: "Riley Moreno", initials: "RM", email: "riley@eldora.example", role: "Lead" },
-  { name: "Sam Okafor", initials: "SO", email: "sam@eldora.example", role: "Hydrants" },
-  { name: "Jess Lindqvist", initials: "JL", email: "jess@eldora.example", role: "Pump house" },
-  { name: "Dev Patel", initials: "DP", email: "dev@eldora.example", role: "Hydrants" },
+  {
+    name: "Riley Moreno",
+    initials: "RM",
+    email: "riley@eldora.example",
+    role: "Lead",
+  },
+  {
+    name: "Sam Okafor",
+    initials: "SO",
+    email: "sam@eldora.example",
+    role: "Hydrants",
+  },
+  {
+    name: "Jess Lindqvist",
+    initials: "JL",
+    email: "jess@eldora.example",
+    role: "Pump house",
+  },
+  {
+    name: "Dev Patel",
+    initials: "DP",
+    email: "dev@eldora.example",
+    role: "Hydrants",
+  },
 ]
 
 export const pumps = [
@@ -160,7 +200,12 @@ function buildShifts(): Shift[] {
       range: `${String(startHour).padStart(2, "0")}:00 – ${String((startHour + 12) % 24).padStart(2, "0")}:00`,
       startsIn: startIdx,
       hours,
-      rating: overlap.length === 0 ? "none" : goodOrBetter >= 4 ? "favorable" : "marginal",
+      rating:
+        overlap.length === 0
+          ? "none"
+          : goodOrBetter >= 4
+            ? "favorable"
+            : "marginal",
       coldest: Math.min(...hours.map((h) => h.wetBulb)),
       windowHours: overlap.length,
     }
