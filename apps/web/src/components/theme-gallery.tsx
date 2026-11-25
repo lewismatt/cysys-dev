@@ -37,7 +37,11 @@ export function ThemeGallery() {
             {theme === t.name ? (
               <Badge>Active</Badge>
             ) : (
-              <Button size="xs" variant="outline" onClick={() => setTheme(t.name)}>
+              <Button
+                size="xs"
+                variant="outline"
+                onClick={() => setTheme(t.name)}
+              >
                 Use
               </Button>
             )}

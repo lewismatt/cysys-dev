@@ -19,9 +19,12 @@ export function EldoraOverview() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="flex flex-col gap-1">
           <div className="font-mono text-xs text-muted-foreground">
-            eldora <span className="text-muted-foreground/50">/</span> snowmaking
+            eldora <span className="text-muted-foreground/50">/</span>{" "}
+            snowmaking
           </div>
-          <h1 className="font-heading text-2xl font-medium tracking-tight">Snowmaking</h1>
+          <h1 className="font-heading text-2xl font-medium tracking-tight">
+            Snowmaking
+          </h1>
           <p className="text-sm text-muted-foreground">
             Conditions, windows and equipment. Demo data.
           </p>

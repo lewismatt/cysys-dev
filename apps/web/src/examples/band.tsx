@@ -20,7 +20,13 @@ const BAND_TONE: Record<Band, StatusTone> = {
 }
 
 /** A band word with a small dot in its color. */
-export function BandLabel({ band, className }: { band: Band; className?: string }) {
+export function BandLabel({
+  band,
+  className,
+}: {
+  band: Band
+  className?: string
+}) {
   return (
     <Status tone={BAND_TONE[band]} className={className}>
       {BAND_LABEL[band]}
@@ -35,7 +41,13 @@ const RATING: Record<Rating, { label: string; tone: StatusTone }> = {
 }
 
 /** Rating for a window or shift: a dot and a word, no container. */
-export function RatingPill({ rating, className }: { rating: Rating; className?: string }) {
+export function RatingPill({
+  rating,
+  className,
+}: {
+  rating: Rating
+  className?: string
+}) {
   return (
     <Status tone={RATING[rating].tone} className={className}>
       {RATING[rating].label}

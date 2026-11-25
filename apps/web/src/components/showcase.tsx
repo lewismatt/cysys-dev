@@ -41,7 +41,12 @@ import {
 } from "@cysys/ui/components/select"
 import { Separator } from "@cysys/ui/components/separator"
 import { Switch } from "@cysys/ui/components/switch"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@cysys/ui/components/tabs"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@cysys/ui/components/tabs"
 import { Textarea } from "@cysys/ui/components/textarea"
 import {
   Tooltip,
@@ -88,7 +93,11 @@ export function Showcase() {
         <CardContent className="flex flex-col gap-4">
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="you@cynerdyne.systems" />
+            <Input
+              id="email"
+              type="email"
+              placeholder="you@cynerdyne.systems"
+            />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
@@ -121,7 +130,10 @@ export function Showcase() {
             ["digest", "Weekly digest", false],
             ["deploys", "Deploy updates", true],
           ].map(([id, label, on]) => (
-            <div key={id as string} className="flex items-center justify-between">
+            <div
+              key={id as string}
+              className="flex items-center justify-between"
+            >
               <Label htmlFor={id as string}>{label}</Label>
               <Switch id={id as string} defaultChecked={on as boolean} />
             </div>
@@ -193,10 +205,16 @@ export function Showcase() {
               <TabsTrigger value="activity">Activity</TabsTrigger>
               <TabsTrigger value="notes">Notes</TabsTrigger>
             </TabsList>
-            <TabsContent value="overview" className="pt-2 text-sm text-muted-foreground">
+            <TabsContent
+              value="overview"
+              className="pt-2 text-sm text-muted-foreground"
+            >
               Uptime 99.98% across 14 services over the last 30 days.
             </TabsContent>
-            <TabsContent value="activity" className="pt-2 text-sm text-muted-foreground">
+            <TabsContent
+              value="activity"
+              className="pt-2 text-sm text-muted-foreground"
+            >
               12 deploys, 3 rollbacks, 0 incidents.
             </TabsContent>
             <TabsContent value="notes" className="pt-2">
@@ -210,9 +228,7 @@ export function Showcase() {
         <Alert>
           <CheckCircle2Icon />
           <AlertTitle>Deployment complete</AlertTitle>
-          <AlertDescription>
-            v2.4.1 is live in all regions.
-          </AlertDescription>
+          <AlertDescription>v2.4.1 is live in all regions.</AlertDescription>
         </Alert>
         <Alert variant="destructive">
           <AlertTriangleIcon />

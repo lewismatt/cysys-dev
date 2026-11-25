@@ -16,7 +16,9 @@ export function UpcomingShifts() {
     <Card>
       <CardHeader>
         <CardTitle>Upcoming shifts</CardTitle>
-        <CardDescription>Each hour colored by its wet-bulb band.</CardDescription>
+        <CardDescription>
+          Each hour colored by its wet-bulb band.
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col divide-y">
         {shifts.slice(0, 3).map((s, i) => (
@@ -24,7 +26,10 @@ export function UpcomingShifts() {
         ))}
       </CardContent>
       <CardFooter className="mt-auto">
-        <a href="#/overview" className="text-sm font-medium text-link underline underline-offset-4">
+        <a
+          href="#/overview"
+          className="text-sm font-medium text-link underline underline-offset-4"
+        >
           Every shift in the forecast
         </a>
       </CardFooter>
@@ -57,7 +62,11 @@ function ShiftRow({ shift, first }: { shift: Shift; first: boolean }) {
         </div>
         <RatingPill rating={shift.rating} />
       </div>
-      <div className="grid grid-cols-12 gap-[3px]" role="img" aria-label={hourSummary(shift)}>
+      <div
+        className="grid grid-cols-12 gap-[3px]"
+        role="img"
+        aria-label={hourSummary(shift)}
+      >
         {Array.from({ length: elapsed }, (_, i) => (
           <div key={`e${i}`} className="h-2 rounded-full bg-muted" />
         ))}
@@ -72,8 +81,12 @@ function ShiftRow({ shift, first }: { shift: Shift; first: boolean }) {
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs text-muted-foreground">
         {(Object.keys(counts) as Band[]).map((b) => (
           <span key={b} className="inline-flex items-center gap-1.5">
-            <span className={cn("size-2 rounded-full", BAND_SWATCH[b])} aria-hidden />
-            {BAND_LABEL[b]} <span className="text-foreground">{counts[b]} h</span>
+            <span
+              className={cn("size-2 rounded-full", BAND_SWATCH[b])}
+              aria-hidden
+            />
+            {BAND_LABEL[b]}{" "}
+            <span className="text-foreground">{counts[b]} h</span>
           </span>
         ))}
       </div>
